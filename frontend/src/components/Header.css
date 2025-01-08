@@ -1,0 +1,60 @@
+/* General styles */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #d9a8a8; /* Adjust to match the pinkish background */
+  padding: 10px 20px;
+  position: relative;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 40px; /* Adjust to fit your design */
+}
+
+.nav {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-link {
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  position: relative;
+}
+
+.nav-link.active::after {
+  content: "";
+  display: block;
+  height: 2px;
+  width: 50%;
+  background-color: white;
+  position: absolute;
+  bottom: -5px;
+  left: 25%; /* Center the underline */
+}
+
+.nav-link:hover {
+  opacity: 0.8;
+}
+
+.icon-container {
+  display: flex;
+  gap: 15px;
+}
+
+.icon {
+  height: 20px; /* Adjust based on your design */
+  cursor: pointer;
+}
