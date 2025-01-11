@@ -17,7 +17,7 @@ body {
   left: 0;
   right: 0;
   z-index: 1000;
-  width: 100%;
+  width: 100% - 280px;
 }
 
 .horizontal-list {
@@ -50,7 +50,7 @@ body {
 }
 
 .header-nav-link {
-  color: var(--color-text-primary);
+  color: var(--color-text-primaryLight);
   font-weight: bold;
   text-decoration: none;
   position: relative;
@@ -75,6 +75,7 @@ body {
 .icon {
   height: 20px; /* Adjust based on your design */
   cursor: pointer;
+  filter: invert(1);
 }
 
 .icon-button {
