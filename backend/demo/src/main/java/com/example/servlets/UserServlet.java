@@ -45,7 +45,7 @@ public class UserServlet extends HttpServlet {
                 // 4) Compare credentials
                 boolean matchFound = false;
                 for (User user : userList) {
-                    if (user.getUsername().equals(incomingUser.getUsername()) &&
+                    if (user.getEmail().equals(incomingUser.getEmail()) &&
                             user.getPassword().equals(incomingUser.getPassword())) {
                         matchFound = true;
                         break;
@@ -56,7 +56,7 @@ public class UserServlet extends HttpServlet {
                     response.getWriter().write("{\"message\":\"User logged in\",\"token\":\"fake_jwt_token\"}");
                 } else {
                     response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                    response.getWriter().write("{\"error\":\"Invalid username or password\"}");
+                    response.getWriter().write("{\"error\":\"Invalid email or password\"}");
                 }
             }
         } else if (requestBody.contains("\"action\":\"register\"")) {
@@ -90,7 +90,7 @@ public class UserServlet extends HttpServlet {
     private void setCorsHeaders(HttpServletResponse response) {
         response.setHeader("Access-Control-Allow-Origin", "http://localhost:5173"); // Adjust the origin as needed
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-        response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, Username, Password");
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, Email, Password");
         response.setHeader("Access-Control-Allow-Credentials", "true");
     }
 

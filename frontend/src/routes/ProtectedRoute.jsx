@@ -7,10 +7,10 @@ export default function ProtectedRoute({ children }) {
 
   useEffect(() => {
     const token = localStorage.getItem("token"); 
-    const username = getCookie("username");
+    const email = getCookie("email");
     const password = getCookie("password");
 
-    if (!token || !username || !password) {
+    if (!token || !email || !password) {
         setIsAllowed(false);
         return;
       }
@@ -23,7 +23,7 @@ export default function ProtectedRoute({ children }) {
         },
         body: JSON.stringify({
           action: "login",
-          username,
+          email,
           password
         })
       })
