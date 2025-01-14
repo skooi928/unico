@@ -8,11 +8,11 @@ export const AllRoutes = () => {
         <Routes>
             <Route path="/"  element={<Home title="Home"/>}/>
             <Route path="/product" element={<Product title="Product"/>}/>
-            <Route path="/userlogin" element={<ULogin title="Login"/>}/>
-            <Route path="/userregister" element={<URegis title="Register"/>}/>
+            <Route path="/login" element={<ULogin title="Login"/>}/>
+            <Route path="/register" element={<URegis title="Register"/>}/>
             {/* Only allow /userprofile if user is logged in */}
             <Route
-              path="/userprofile"
+              path="/profile"
               element={
                 <ProtectedRoute>
                   <UProfile title="User Profile" />

@@ -40,7 +40,7 @@ export default function ProtectedRoute({ children }) {
     return <div>Checking authorization...</div>;
   }
   if (!isAllowed) {
-    return <Navigate to="/userlogin" replace />;
+    return <Navigate to="/login" replace />;
   }
   return children;
 }

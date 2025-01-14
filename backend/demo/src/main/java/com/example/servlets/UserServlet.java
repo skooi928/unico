@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.ArrayList;
 import com.example.models.User;
 
 @WebServlet("/user")
@@ -60,8 +61,36 @@ public class UserServlet extends HttpServlet {
                 }
             }
         } else if (requestBody.contains("\"action\":\"register\"")) {
-            // Registration logic (write to user.json or DB)
-            response.getWriter().write("{\"message\":\"User registered successfully\"}");
+            String path = getServletContext().getRealPath("/WEB-INF/data/user.json");
+            List<User> userList;
+
+            // Read existing users
+            try (Reader fileReader = new FileReader(path)) {
+                Type userListType = new TypeToken<List<User>>() {
+                }.getType();
+                userList = gson.fromJson(fileReader, userListType);
+                if (userList == null)
+                    userList = new ArrayList<>();
+            }
+
+            // Check if email already exists
+            boolean emailExists = userList.stream()
+                    .anyMatch(user -> user.getEmail().equals(incomingUser.getEmail()));
+
+            if (emailExists) {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                response.getWriter().write("{\"error\":\"Email already registered\"}");
+                return;
+            }
+
+            // Add new user
+            userList.add(incomingUser);
+
+            // Write back to file
+            try (Writer writer = new FileWriter(path)) {
+                gson.toJson(userList, writer);
+                response.getWriter().write("{\"message\":\"User registered successfully\"}");
+            }
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.getWriter().write("{\"error\":\"Unknown action\"}");

@@ -51,7 +51,7 @@ export const Header = () =>{
             <img src={cartIcon} alt="Cart" className="icon" />
           </button>
         </NavLink>
-        <NavLink to={ isLoggedIn ? "/userprofile" : "/userlogin" }>
+        <NavLink to={ isLoggedIn ? "/profile" : "/login" }>
           <button className="icon-button">
             <img src={userIcon} alt="User" className="icon" />
           </button>
