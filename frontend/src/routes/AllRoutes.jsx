@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { ULogin, URegis, UProfile, Home, Cart, PageNotFound, Search, Product } from "../pages";
+import { ULogin, URegis, UProfile, Home, Cart, PageNotFound, Search, Product, VerifyEmail } from "../pages";
 import ProtectedRoute from "./ProtectedRoute";
 
 export const AllRoutes = () => {
@@ -10,6 +10,7 @@ export const AllRoutes = () => {
             <Route path="/product" element={<Product title="Product"/>}/>
             <Route path="/login" element={<ULogin title="Login"/>}/>
             <Route path="/register" element={<URegis title="Register"/>}/>
+            <Route path="/verify" element={<VerifyEmail title="Verify Email"/>}/>
             {/* Only allow /userprofile if user is logged in */}
             <Route
               path="/profile"

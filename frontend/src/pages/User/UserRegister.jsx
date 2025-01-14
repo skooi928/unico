@@ -10,30 +10,44 @@ export const URegis = () => {
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await fetch("http://localhost:8080/api/user", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    action: "register",
-                    email,
-                    password
-                }),
-            });
+      e.preventDefault();
+      try {
+          const response = await fetch("http://localhost:8080/api/user", {
+              method: "POST",
+              headers: {
+                  "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                  action: "register",
+                  email,
+                  password
+              }),
+          });
+  
+          const data = await response.json();
+        console.log('Server response:', data); // Debug log
 
-            const data = await response.json();
-            if (response.ok) {
+        if (response.ok) {
+            if (data.message && data.message.includes("verify")) {
+                alert(data.message);
                 navigate("/login");
             } else {
-                setError(data.error || "Registration failed");
+                alert("Registration successful!");
+                navigate("/login");
             }
-        } catch (err) {
-            setError("Registration failed");
+        } else if (data.error === "Failed to send verification email") {
+            setError("Account created but verification email failed. Please contact support.");
+        } else if (data.error === "Email already registered") {
+            setError("This email is already registered.");
+        } else {
+            console.error('Registration error:', data.error); // Debug log
+            setError(data.error || "Registration failed. Please try again.");
         }
-    };
+      } catch (err) {
+          console.error('Registration error:', err); // Debug log
+          setError("Server error. Please try again later.");
+      }
+  };
 
     return (
         <div className="register-page">

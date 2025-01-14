@@ -1,8 +1,11 @@
 package com.example.models;
 
 public class User {
-    private String email;
-    private String password;
+    private String email = "";
+    private String password = "";
+    private boolean verified = false;
+    private String verificationToken = null;
+    private long tokenExpiry = 0;
 
     public User() {
     }
@@ -26,5 +29,29 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isVerified() {
+        return verified;
+    }
+
+    public void setVerified(boolean verified) {
+        this.verified = verified;
+    }
+
+    public String getVerificationToken() {
+        return verificationToken;
+    }
+
+    public void setVerificationToken(String verificationToken) {
+        this.verificationToken = verificationToken;
+    }
+
+    public long getTokenExpiry() {
+        return tokenExpiry;
+    }
+
+    public void setTokenExpiry(long tokenExpiry) {
+        this.tokenExpiry = tokenExpiry;
     }
 }
