@@ -1,0 +1,7 @@
+.user-profile .header-nav-link {
+    color: #000;
+}
+
+.user-profile .icon {
+    filter: invert(0);
+}

@@ -1,0 +1,7 @@
+.user-login .header-nav-link {
+    color: #000;
+}
+
+.user-login .icon {
+    filter: invert(0);
+}
