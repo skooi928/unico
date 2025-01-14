@@ -6,3 +6,4 @@ export { ULogin } from "./User/UserLogin";
 export { URegis } from "./User/UserRegister";
 export { UProfile } from "./User/UserProfile";
 export { Product } from "./Product";
+export { VerifyEmail } from "./User/VerifyEmail";
