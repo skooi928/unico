@@ -37,7 +37,7 @@ export const ULogin = () => {
       localStorage.setItem("token", data.token);
       document.cookie = `email=${email}; path=/`;
       document.cookie = `password=${password}; path=/`;
-      navigate("/userprofile");
+      navigate("/profile");
     } else {
       setError(data.error || "Login failed");
     }
