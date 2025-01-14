@@ -7,6 +7,8 @@ import userIcon from "/Icon/user.webp";
 import { NavLink } from "react-router-dom";
 
 export const Header = () =>{
+  const isLoggedIn = !!localStorage.getItem("token"); // or context, etc.
+
   return (
     <header className="header">
       <div className="logo-container">
@@ -49,7 +51,7 @@ export const Header = () =>{
             <img src={cartIcon} alt="Cart" className="icon" />
           </button>
         </NavLink>
-        <NavLink to="/userprofile">
+        <NavLink to={ isLoggedIn ? "/userprofile" : "/userlogin" }>
           <button className="icon-button">
             <img src={userIcon} alt="User" className="icon" />
           </button>
