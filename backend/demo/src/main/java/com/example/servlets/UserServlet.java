@@ -59,6 +59,7 @@ public class UserServlet extends HttpServlet {
                         JsonObject userData = new JsonObject();
                         userData.addProperty("email", user.getEmail());
                         // Add other user fields as needed
+                        userData.addProperty("address", user.getAddress());
                         jsonResponse.add("user", userData);
                         response.getWriter().write(jsonResponse.toString());
                         break;
@@ -184,6 +185,28 @@ public class UserServlet extends HttpServlet {
                     response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                     response.getWriter().write("{\"error\":\"Invalid or expired verification token\"}");
                 }
+            }
+        } else if (requestBody.contains("\"action\":\"update\"")) {
+            // comment: user can adjust logic to decide which fields to update
+            String path = getServletContext().getRealPath("/WEB-INF/data/user.json");
+            try (Reader fileReader = new FileReader(path)) {
+                Type userListType = new TypeToken<List<User>>() {}.getType();
+                List<User> userList = gson.fromJson(fileReader, userListType);
+        
+                for (User user : userList) {
+                    if (user.getEmail().equals(incomingUser.getEmail())) {
+                        user.setAddress(incomingUser.getAddress());
+                        // comment: add more fields to update here
+                        break;
+                    }
+                }
+                try (Writer writer = new FileWriter(path)) {
+                    gson.toJson(userList, writer);
+                }
+                response.getWriter().write("{\"message\":\"Address updated.\"}");
+            } catch (Exception e) {
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                response.getWriter().write("{\"error\":\"" + e.getMessage() + "\"}");
             }
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);

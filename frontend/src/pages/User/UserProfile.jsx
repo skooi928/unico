@@ -1,11 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./UserProfile.css";
 import { Header } from "../../components";
 import { deleteCookie } from "../../utils/cookies";
 
 export const UProfile = ({ user }) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [newAddress, setNewAddress] = useState(user && user.address ? user.address : "");
+
   const navigate = useNavigate();
+
+  const handleAddressUpdate = async () => {
+    // Replace the fetch URL if needed
+    const response = await fetch("http://localhost:8080/api/user", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        action: "update",
+        email: user.email,
+        address: newAddress // comment: user can modify the field name
+      }),
+    });
+    if (response.ok) {
+      // On success, you could reload the page or show a success message
+      setIsEditing(false);
+    } else {
+      alert("Failed to update address.");
+    }
+  };
 
   const handleLogout = () => {
     // Clear cookies
@@ -24,10 +46,28 @@ export const UProfile = ({ user }) => {
         <h1>Profile</h1>
         {user && (
           <div className="profile-details">
-            <p>
-              <strong>Email:</strong> {user.email}
-            </p>
-            {/* Add more user details as needed */}
+            <div className="profile-row">
+                <strong className="userAttrType">Email: </strong> 
+                <span className="userAttrValue">{user.email}</span>
+            </div>
+            {!isEditing ? (
+              <div className="profile-row">
+                <strong className="userAttrType">Address: </strong>
+                <span className="userAttrValue">{user.address}</span>
+                <span className="pencil-icon" onClick={() => setIsEditing(true)}>✏️</span>
+              </div>
+            ) : (
+              <div className="profile-rowEdit">
+                <strong className="userAttrType">New Address: </strong>
+                <input
+                  id="addressInput"
+                  type="text"
+                  value={newAddress}
+                  onChange={(e) => setNewAddress(e.target.value)}
+                />
+                <button onClick={handleAddressUpdate}>Save Address</button>
+              </div>
+            )}
           </div>
         )}
         <button className="logout-button" onClick={handleLogout}>

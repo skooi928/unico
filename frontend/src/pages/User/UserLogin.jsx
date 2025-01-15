@@ -7,39 +7,44 @@ export const ULogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    setLoading(true); // show spinner
 
-    const response = await fetch("http://localhost:8080/api/user", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        action: "login",
-        email,
-        password,
-      }),
-    });
+    try {
+      const response = await fetch("http://localhost:8080/api/user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          action: "login",
+          email,
+          password,
+        }),
+      });
 
-    const data = await response.json();
-    if (response.ok) {
-      localStorage.setItem("token", data.token);
-      document.cookie = `email=${email}; path=/`;
-      document.cookie = `password=${password}; path=/`;
-      navigate("/profile");
-    } else {
-      setError(data.error || "Login failed");
+      const data = await response.json();
+      if (response.ok) {
+        localStorage.setItem("token", data.token);
+        document.cookie = `email=${email}; path=/`;
+        document.cookie = `password=${password}; path=/`;
+        navigate("/profile");
+      } else {
+        setError(data.error || "Login failed");
+        setPassword("");
+      }
+    } finally {
+      setLoading(false); // hide spinner
     }
   };
 
@@ -72,10 +77,10 @@ export const ULogin = () => {
                 placeholder="Enter your password"
                 required
               />
-              <p className="password-instructions">
+              {/* <p className="password-instructions">
                 Password must be at least 8 characters, and contain both letters
                 and numbers. Only these symbols can be used: _-.@
-              </p>
+              </p> */}
               <div className="checkbox-group">
                 <input
                   type="checkbox"
@@ -83,13 +88,23 @@ export const ULogin = () => {
                   checked={showPassword}
                   onChange={togglePasswordVisibility}
                 />
-                <label htmlFor="show-password">Show my password</label>
+                <label id="showPwLabel" htmlFor="show-password">
+                  Show my password
+                </label>
               </div>
+              <p className="error-feedback">
+                {error && <span>{error}</span>}
+              </p>
             </div>
             <div className="form-links">
-              <a href="/terms">TERMS OF USE</a> | <a href="/privacy">PRIVACY POLICY</a>
+              <a href="/terms">TERMS OF USE</a> |{" "}
+              <a href="/privacy">PRIVACY POLICY</a>
             </div>
-            <button type="submit" className="login-button" onClick={handleSubmit}>
+            <button
+              type="submit"
+              className="login-button"
+              onClick={handleSubmit}
+            >
               LOG IN
             </button>
             <div className="forgot-password">

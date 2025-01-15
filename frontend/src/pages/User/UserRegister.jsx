@@ -51,34 +51,53 @@ export const URegis = () => {
 
     return (
         <div className="register-page">
-            <Header/>
-            <h1>Register</h1>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Email:</label>
-                    <input
-                      type="email"
-                      id="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="Enter a valid email"
-                      required
-                    />
+            <Header />
+            <div className="register-container">
+                <div className="register-form">
+                    <h2>REGISTER</h2>
+                    <p>Create an account with your email address and password.</p>
+                    <form onSubmit={handleSubmit}>
+                        <div className="form-group">
+                            <label htmlFor="email">EMAIL ADDRESS *</label>
+                            <input
+                                type="email"
+                                id="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                placeholder="Enter a valid email"
+                                required
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="password">PASSWORD *</label>
+                            <input
+                                type="password"
+                                id="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                placeholder="Enter your password"
+                                required
+                            />
+                        </div>
+                        <p className="error-feedback">
+                            {error && <span>{error}</span>}
+                        </p>
+                        <div className="form-links">
+                            <a href="/terms">TERMS OF USE</a> | <a href="/privacy">PRIVACY POLICY</a>
+                        </div>
+                        <button type="submit" className="register-button">REGISTER</button>
+                    </form>
                 </div>
-                <div>
-                    <label>Password:</label>
-                    <input
-                      type="password"
-                      id="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      placeholder="Enter your password"
-                      required
-                    />
+                <div className="create-account">
+                    <h2>ALREADY HAVE AN ACCOUNT?</h2>
+                    <p>
+                        If you already have an account, log in to access your profile and complete your orders.
+                    </p>
+                    <a href="/login">
+                        <button className="create-account-button">LOG IN</button>
+                    </a>
                 </div>
-                {error && <p style={{ color: "red" }}>{error}</p>}
-                <button type="submit" onClick={handleSubmit} className="register-btn">Register</button>
-            </form>
+            </div>
         </div>
     );
 };
