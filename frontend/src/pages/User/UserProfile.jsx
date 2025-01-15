@@ -1,11 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./UserProfile.css";
 import { Header } from "../../components";
 import { deleteCookie } from "../../utils/cookies";
 
 export const UProfile = ({ user }) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [newAddress, setNewAddress] = useState(user && user.address ? user.address : "");
+
   const navigate = useNavigate();
+
+  const handleAddressUpdate = async () => {
+    // Replace the fetch URL if needed
+    const response = await fetch("http://localhost:8080/api/user", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        action: "update",
+        email: user.email,
+        address: newAddress // comment: user can modify the field name
+      }),
+    });
+    if (response.ok) {
+      // On success, you could reload the page or show a success message
+      alert("Address updated successfully!");
+    } else {
+      alert("Failed to update address.");
+    }
+  };
 
   const handleLogout = () => {
     // Clear cookies
@@ -27,7 +49,23 @@ export const UProfile = ({ user }) => {
             <p>
               <strong>Email:</strong> {user.email}
             </p>
-            {/* Add more user details as needed */}
+            {!isEditing ? (
+              <p>
+                <strong>Address:</strong> {user.address}
+                <span className="pencil-icon" onClick={() => setIsEditing(true)}>✏️</span>
+              </p>
+            ) : (
+              <>
+                <label htmlFor="addressInput">Update Address</label>
+                <input
+                  id="addressInput"
+                  type="text"
+                  value={newAddress}
+                  onChange={(e) => setNewAddress(e.target.value)}
+                />
+                <button onClick={handleAddressUpdate}>Save Address</button>
+              </>
+            )}
           </div>
         )}
         <button className="logout-button" onClick={handleLogout}>

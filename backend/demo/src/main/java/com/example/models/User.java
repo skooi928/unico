@@ -3,6 +3,7 @@ package com.example.models;
 public class User {
     private String email = "";
     private String password = "";
+    private String address = "";
     private boolean verified = false;
     private String verificationToken = null;
     private long tokenExpiry = 0;
@@ -29,6 +30,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public boolean isVerified() {
