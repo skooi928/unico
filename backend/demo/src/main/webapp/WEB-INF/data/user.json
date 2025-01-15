@@ -1,1 +1,8 @@
-[{"email":"skooi853@yahoo.com","password":"123","verified":true,"tokenExpiry":1736966000014}]
+[
+  {
+    "email": "skooi853@yahoo.com",
+    "password": "123",
+    "verified": true,
+    "tokenExpiry": 1736966000014
+  }
+]
