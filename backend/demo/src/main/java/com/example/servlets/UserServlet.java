@@ -150,6 +150,7 @@ public class UserServlet extends HttpServlet {
                 System.out.println("Users in file: " + userList.size()); // Debug log
 
                 boolean verified = false;
+                User verifiedUser = null;
                 for (User user : userList) {
                     System.out.println("User token: " + user.getVerificationToken()); // Debug log
                     if (user.getVerificationToken() != null &&
@@ -158,27 +159,28 @@ public class UserServlet extends HttpServlet {
                         user.setVerified(true);
                         user.setVerificationToken(null);
                         verified = true;
+                        verifiedUser = user;
                         break;
                     }
                 }
 
-                if (verified) {
+                if (verified && verifiedUser != null) {
                     try (Writer writer = new FileWriter(path)) {
                         gson.toJson(userList, writer);
                         JsonObject jsonResponse = new JsonObject();
                         jsonResponse.addProperty("message", "Email verified successfully");
 
                         // Add user data to response
+                        // Include the just-verified user's data
                         JsonObject userData = new JsonObject();
-                        for (User user : userList) {
-                            if (user.isVerified()) {
-                                userData.addProperty("email", user.getEmail());
-                                userData.addProperty("password", user.getPassword());
-                                break;
-                            }
-                        }
-                        jsonResponse.add("user", userData);
+                        userData.addProperty("email", verifiedUser.getEmail());
+                        System.out.println("User email: " + verifiedUser.getEmail()); // Debug log
+                        userData.addProperty("password", verifiedUser.getPassword());
+                        System.out.println("User password: " + verifiedUser.getPassword()); // Debug log
+                        userData.addProperty("address", verifiedUser.getAddress());
+                        System.out.println("User address: " + verifiedUser.getAddress()); // Debug log
 
+                        jsonResponse.add("user", userData);
                         response.getWriter().write(jsonResponse.toString());
                     }
                 } else {
@@ -190,9 +192,10 @@ public class UserServlet extends HttpServlet {
             // comment: user can adjust logic to decide which fields to update
             String path = getServletContext().getRealPath("/WEB-INF/data/user.json");
             try (Reader fileReader = new FileReader(path)) {
-                Type userListType = new TypeToken<List<User>>() {}.getType();
+                Type userListType = new TypeToken<List<User>>() {
+                }.getType();
                 List<User> userList = gson.fromJson(fileReader, userListType);
-        
+
                 for (User user : userList) {
                     if (user.getEmail().equals(incomingUser.getEmail())) {
                         user.setAddress(incomingUser.getAddress());

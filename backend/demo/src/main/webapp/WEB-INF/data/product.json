@@ -1,0 +1,65 @@
+[
+    {
+        "name": "Men's Casual Shirt",
+        "description": "A comfortable and stylish casual shirt for men.",
+        "price": 29.99,
+        "category": "men",
+        "type": "shirts"
+    },
+    {
+        "name": "Women's Summer Dress",
+        "description": "A light and breezy summer dress for women.",
+        "price": 49.99,
+        "category": "women",
+        "type": "dresses"
+    },
+    {
+        "name": "Kids' T-Shirt",
+        "description": "A fun and colorful t-shirt for kids.",
+        "price": 15.99,
+        "category": "kids",
+        "type": "shirts"
+    },
+    {
+        "name": "Men's Jeans",
+        "description": "Classic denim jeans for men.",
+        "price": 39.99,
+        "category": "men",
+        "type": "pants"
+    },
+    {
+        "name": "Women's Handbag",
+        "description": "A stylish handbag for women.",
+        "price": 79.99,
+        "category": "women",
+        "type": "accessories"
+    },
+    {
+        "name": "Kids' Sneakers",
+        "description": "Comfortable and durable sneakers for kids.",
+        "price": 25.99,
+        "category": "kids",
+        "type": "shoes"
+    },
+    {
+        "name": "Men's Jacket",
+        "description": "A warm and fashionable jacket for men.",
+        "price": 59.99,
+        "category": "men",
+        "type": "outerwear"
+    },
+    {
+        "name": "Women's Scarf",
+        "description": "A soft and elegant scarf for women.",
+        "price": 19.99,
+        "category": "women",
+        "type": "accessories"
+    },
+    {
+        "name": "Kids' Pajamas",
+        "description": "Cozy and cute pajamas for kids.",
+        "price": 22.99,
+        "category": "kids",
+        "type": "sleepwear"
+    }
+]

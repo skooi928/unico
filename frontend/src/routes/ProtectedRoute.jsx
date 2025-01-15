@@ -8,37 +8,36 @@ export default function ProtectedRoute({ children }) {
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
-    const token = localStorage.getItem("token"); 
     const email = getCookie("email");
     const password = getCookie("password");
 
-    if (!token || !email || !password) {
-        setIsAllowed(false);
-        return;
-      }
+    if (!email || !password) {
+      setIsAllowed(false);
+      return;
+    }
 
     // Check with /user servlet
     fetch("http://localhost:8080/api/user", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          action: "login",
-          email,
-          password
-        })
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        action: "login",
+        email,
+        password,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) {
+          throw new Error(data.error);
+        }
+        setIsAllowed(true);
+        setUserData(data.user);
       })
-        .then(res => res.json())
-        .then(data => {
-          if (data.error) {
-            throw new Error(data.error);
-          }
-          setIsAllowed(true);
-          setUserData(data.user);
-        })
-        .catch(() => setIsAllowed(false));
-    }, []);
+      .catch(() => setIsAllowed(false));
+  }, []);
 
   if (isAllowed === null) {
     // Loading state
