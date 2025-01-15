@@ -23,7 +23,7 @@ export const UProfile = ({ user }) => {
     });
     if (response.ok) {
       // On success, you could reload the page or show a success message
-      alert("Address updated successfully!");
+      setIsEditing(false);
     } else {
       alert("Failed to update address.");
     }
@@ -47,8 +47,8 @@ export const UProfile = ({ user }) => {
         {user && (
           <div className="profile-details">
             <div className="profile-row">
-                <strong className="userAttrType">Name: </strong> 
-                <span className="userAttrValue">{user.name}</span>
+                <strong className="userAttrType">Email: </strong> 
+                <span className="userAttrValue">{user.email}</span>
             </div>
             {!isEditing ? (
               <div className="profile-row">
@@ -57,8 +57,8 @@ export const UProfile = ({ user }) => {
                 <span className="pencil-icon" onClick={() => setIsEditing(true)}>✏️</span>
               </div>
             ) : (
-              <>
-                <label htmlFor="addressInput">Update Address</label>
+              <div className="profile-rowEdit">
+                <strong className="userAttrType">New Address: </strong>
                 <input
                   id="addressInput"
                   type="text"
@@ -66,7 +66,7 @@ export const UProfile = ({ user }) => {
                   onChange={(e) => setNewAddress(e.target.value)}
                 />
                 <button onClick={handleAddressUpdate}>Save Address</button>
-              </>
+              </div>
             )}
           </div>
         )}

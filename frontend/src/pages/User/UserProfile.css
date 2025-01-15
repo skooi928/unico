@@ -34,8 +34,16 @@
 
 .profile-row {
     display: grid;
-    grid-template-columns: repeat(3, auto);
+    grid-template-columns: 0.5fr 2fr 1fr;
     margin-bottom: 10px;
+}
+
+.userAttrType {
+    text-align: left;
+}
+
+.userAttrValue {
+    text-align: left;
 }
 
 .pencil-icon {
@@ -43,6 +51,41 @@
     text-align: right;
     cursor: pointer;
     float: right;
+}
+
+.profile-rowEdit {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.profile-rowEdit label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.profile-rowEdit input {
+    padding: 10px;
+    width: calc(100% - 20px);
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.profile-rowEdit button {
+    background-color: var(--button-color);
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 4px;
+    margin-top: 5px;
+}
+
+.profile-rowEdit button:hover {
+    background-color: var(--button-colorHover);
 }
 
 .logout-button {
