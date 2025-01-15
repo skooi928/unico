@@ -15,7 +15,6 @@ export const ULogin = () => {
     setShowPassword(!showPassword);
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -72,10 +71,10 @@ export const ULogin = () => {
                 placeholder="Enter your password"
                 required
               />
-              <p className="password-instructions">
+              {/* <p className="password-instructions">
                 Password must be at least 8 characters, and contain both letters
                 and numbers. Only these symbols can be used: _-.@
-              </p>
+              </p> */}
               <div className="checkbox-group">
                 <input
                   type="checkbox"
@@ -83,7 +82,7 @@ export const ULogin = () => {
                   checked={showPassword}
                   onChange={togglePasswordVisibility}
                 />
-                <label htmlFor="show-password">Show my password</label>
+                <label id="showPwLabel" htmlFor="show-password">Show my password</label>
               </div>
             </div>
             <div className="form-links">

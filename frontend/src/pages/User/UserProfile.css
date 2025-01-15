@@ -8,6 +8,10 @@
     filter: invert(0);
 }
 
+.user-profile .header {
+    background-color: #f9f9f9;
+}
+
 .profile-container {
     max-width: 600px;
     height: 100vh;
