@@ -46,14 +46,16 @@ export const UProfile = ({ user }) => {
         <h1>Profile</h1>
         {user && (
           <div className="profile-details">
-            <p>
-              <strong>Email:</strong> {user.email}
-            </p>
+            <div className="profile-row">
+                <strong className="userAttrType">Name: </strong> 
+                <span className="userAttrValue">{user.name}</span>
+            </div>
             {!isEditing ? (
-              <p>
-                <strong>Address:</strong> {user.address}
+              <div className="profile-row">
+                <strong className="userAttrType">Address: </strong>
+                <span className="userAttrValue">{user.address}</span>
                 <span className="pencil-icon" onClick={() => setIsEditing(true)}>✏️</span>
-              </p>
+              </div>
             ) : (
               <>
                 <label htmlFor="addressInput">Update Address</label>

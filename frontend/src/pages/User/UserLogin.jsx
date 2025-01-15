@@ -41,6 +41,7 @@ export const ULogin = () => {
         navigate("/profile");
       } else {
         setError(data.error || "Login failed");
+        setPassword("");
       }
     } finally {
       setLoading(false); // hide spinner
@@ -91,6 +92,9 @@ export const ULogin = () => {
                   Show my password
                 </label>
               </div>
+              <p className="error-feedback">
+                {error && <span>{error}</span>}
+              </p>
             </div>
             <div className="form-links">
               <a href="/terms">TERMS OF USE</a> |{" "}

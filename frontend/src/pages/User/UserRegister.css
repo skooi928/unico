@@ -67,6 +67,7 @@ label {
 }
 
 input[type="email"],
+input[type="text"],
 input[type="password"] {
     width: 100%;
     padding: 10px;
@@ -95,6 +96,13 @@ input[type="password"] {
     font-size: 12px;
     margin: 10px 0;
 }
+
+.error-feedback {
+    color: var(--color-text-error);
+    font-size: 12px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+  }
 
 .form-links a {
     text-decoration: none;

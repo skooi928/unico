@@ -79,6 +79,9 @@ export const URegis = () => {
                                 required
                             />
                         </div>
+                        <p className="error-feedback">
+                            {error && <span>{error}</span>}
+                        </p>
                         <div className="form-links">
                             <a href="/terms">TERMS OF USE</a> | <a href="/privacy">PRIVACY POLICY</a>
                         </div>

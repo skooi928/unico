@@ -10,5 +10,6 @@
     --color-text-secondary: #6a6a6a;
     --color-text-secondaryHover: rgba(106, 106, 106, 0.6);
     --color-text-tertiary: #959595;
+    --color-text-error: #ff0000;
 }
   

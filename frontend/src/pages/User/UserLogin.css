@@ -96,6 +96,13 @@
     font-size: 13px;
     margin: 0;
   }
+
+  .error-feedback {
+    color: var(--color-text-error);
+    font-size: 12px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+  }
   
   .form-links {
     font-size: 12px;
