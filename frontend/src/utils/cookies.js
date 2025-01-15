@@ -19,7 +19,7 @@ export const setCookie = (name, value) => {
       throw new Error('Invalid cookie parameters');
     }
     // No 'expires' or 'max-age' => session cookie
-    document.cookie = `${name}=${encodeURIComponent(value)}; path=/`;
+    document.cookie = `${name}=${value}; path=/`;
   } catch (err) {
     console.error('Error setting cookie:', err);
   }

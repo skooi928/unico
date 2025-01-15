@@ -6,7 +6,9 @@ import { deleteCookie } from "../../utils/cookies";
 
 export const UProfile = ({ user }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [newAddress, setNewAddress] = useState(user && user.address ? user.address : "");
+  const [newAddress, setNewAddress] = useState(
+    user && user.address ? user.address : ""
+  );
 
   const navigate = useNavigate();
 
@@ -18,11 +20,13 @@ export const UProfile = ({ user }) => {
       body: JSON.stringify({
         action: "update",
         email: user.email,
-        address: newAddress // comment: user can modify the field name
+        address: newAddress, // comment: user can modify the field name
       }),
     });
     if (response.ok) {
       // On success, you could reload the page or show a success message
+      // reload page
+      window.location.reload();
       setIsEditing(false);
     } else {
       alert("Failed to update address.");
@@ -47,14 +51,19 @@ export const UProfile = ({ user }) => {
         {user && (
           <div className="profile-details">
             <div className="profile-row">
-                <strong className="userAttrType">Email: </strong> 
-                <span className="userAttrValue">{user.email}</span>
+              <strong className="userAttrType">Email: </strong>
+              <span className="userAttrValue">{user.email}</span>
             </div>
             {!isEditing ? (
               <div className="profile-row">
                 <strong className="userAttrType">Address: </strong>
                 <span className="userAttrValue">{user.address}</span>
-                <span className="pencil-icon" onClick={() => setIsEditing(true)}>✏️</span>
+                <span
+                  className="pencil-icon"
+                  onClick={() => setIsEditing(true)}
+                >
+                  ✏️
+                </span>
               </div>
             ) : (
               <div className="profile-rowEdit">

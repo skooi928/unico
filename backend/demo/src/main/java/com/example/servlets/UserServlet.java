@@ -127,58 +127,51 @@ public class UserServlet extends HttpServlet {
                         emailService.sendVerificationEmail(incomingUser.getEmail(), verificationToken);
                         response.getWriter().write("{\"message\":\"Please check your email to verify your account\"}");
                     } catch (MessagingException e) {
-                        System.err.println("Email error: " + e.getMessage()); // Debug log
                         response.setStatus(HttpServletResponse.SC_OK); // Still created user
                         response.getWriter().write("{\"message\":\"Account created but verification email failed\"}");
                     }
                 }
             } catch (Exception e) {
-                System.err.println("Registration error: " + e.getMessage()); // Debug log
                 response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                 response.getWriter().write("{\"error\":\"" + e.getMessage() + "\"}");
             }
         } else if (requestBody.contains("\"action\":\"verify\"")) {
             JsonObject jsonObject = gson.fromJson(requestBody, JsonObject.class);
             String token = jsonObject.get("verificationToken").getAsString();
-            System.out.println("Received token from request: " + token); // Debug log
 
             String path = getServletContext().getRealPath("/WEB-INF/data/user.json");
             try (Reader fileReader = new FileReader(path)) {
                 Type userListType = new TypeToken<List<User>>() {
                 }.getType();
                 List<User> userList = gson.fromJson(fileReader, userListType);
-                System.out.println("Users in file: " + userList.size()); // Debug log
 
                 boolean verified = false;
+                User verifiedUser = null;
                 for (User user : userList) {
-                    System.out.println("User token: " + user.getVerificationToken()); // Debug log
                     if (user.getVerificationToken() != null &&
                             user.getVerificationToken().equals(token)) {
-                        System.out.println("Token matched!"); // Debug log
                         user.setVerified(true);
                         user.setVerificationToken(null);
                         verified = true;
+                        verifiedUser = user;
                         break;
                     }
                 }
 
-                if (verified) {
+                if (verified && verifiedUser != null) {
                     try (Writer writer = new FileWriter(path)) {
                         gson.toJson(userList, writer);
                         JsonObject jsonResponse = new JsonObject();
                         jsonResponse.addProperty("message", "Email verified successfully");
 
                         // Add user data to response
+                        // Include the just-verified user's data
                         JsonObject userData = new JsonObject();
-                        for (User user : userList) {
-                            if (user.isVerified()) {
-                                userData.addProperty("email", user.getEmail());
-                                userData.addProperty("password", user.getPassword());
-                                break;
-                            }
-                        }
-                        jsonResponse.add("user", userData);
+                        userData.addProperty("email", verifiedUser.getEmail());
+                        userData.addProperty("password", verifiedUser.getPassword());
+                        userData.addProperty("address", verifiedUser.getAddress());
 
+                        jsonResponse.add("user", userData);
                         response.getWriter().write(jsonResponse.toString());
                     }
                 } else {
@@ -190,9 +183,10 @@ public class UserServlet extends HttpServlet {
             // comment: user can adjust logic to decide which fields to update
             String path = getServletContext().getRealPath("/WEB-INF/data/user.json");
             try (Reader fileReader = new FileReader(path)) {
-                Type userListType = new TypeToken<List<User>>() {}.getType();
+                Type userListType = new TypeToken<List<User>>() {
+                }.getType();
                 List<User> userList = gson.fromJson(fileReader, userListType);
-        
+
                 for (User user : userList) {
                     if (user.getEmail().equals(incomingUser.getEmail())) {
                         user.setAddress(incomingUser.getAddress());
