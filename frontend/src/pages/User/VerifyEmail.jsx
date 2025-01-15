@@ -29,12 +29,10 @@ export const VerifyEmail = () => {
           if (data.user) {
             if (data.user.email) {
               setCookie("email", data.user.email);
-              console.log("Email cookie set:", data.user.email); // Debug log
             }
 
             if (data.user.password) {
               setCookie("password", data.user.password);
-              console.log("Password cookie set:", data.user.password); // Debug log
             }
           }
 

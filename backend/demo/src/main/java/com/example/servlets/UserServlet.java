@@ -127,35 +127,29 @@ public class UserServlet extends HttpServlet {
                         emailService.sendVerificationEmail(incomingUser.getEmail(), verificationToken);
                         response.getWriter().write("{\"message\":\"Please check your email to verify your account\"}");
                     } catch (MessagingException e) {
-                        System.err.println("Email error: " + e.getMessage()); // Debug log
                         response.setStatus(HttpServletResponse.SC_OK); // Still created user
                         response.getWriter().write("{\"message\":\"Account created but verification email failed\"}");
                     }
                 }
             } catch (Exception e) {
-                System.err.println("Registration error: " + e.getMessage()); // Debug log
                 response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                 response.getWriter().write("{\"error\":\"" + e.getMessage() + "\"}");
             }
         } else if (requestBody.contains("\"action\":\"verify\"")) {
             JsonObject jsonObject = gson.fromJson(requestBody, JsonObject.class);
             String token = jsonObject.get("verificationToken").getAsString();
-            System.out.println("Received token from request: " + token); // Debug log
 
             String path = getServletContext().getRealPath("/WEB-INF/data/user.json");
             try (Reader fileReader = new FileReader(path)) {
                 Type userListType = new TypeToken<List<User>>() {
                 }.getType();
                 List<User> userList = gson.fromJson(fileReader, userListType);
-                System.out.println("Users in file: " + userList.size()); // Debug log
 
                 boolean verified = false;
                 User verifiedUser = null;
                 for (User user : userList) {
-                    System.out.println("User token: " + user.getVerificationToken()); // Debug log
                     if (user.getVerificationToken() != null &&
                             user.getVerificationToken().equals(token)) {
-                        System.out.println("Token matched!"); // Debug log
                         user.setVerified(true);
                         user.setVerificationToken(null);
                         verified = true;
@@ -174,11 +168,8 @@ public class UserServlet extends HttpServlet {
                         // Include the just-verified user's data
                         JsonObject userData = new JsonObject();
                         userData.addProperty("email", verifiedUser.getEmail());
-                        System.out.println("User email: " + verifiedUser.getEmail()); // Debug log
                         userData.addProperty("password", verifiedUser.getPassword());
-                        System.out.println("User password: " + verifiedUser.getPassword()); // Debug log
                         userData.addProperty("address", verifiedUser.getAddress());
-                        System.out.println("User address: " + verifiedUser.getAddress()); // Debug log
 
                         jsonResponse.add("user", userData);
                         response.getWriter().write(jsonResponse.toString());
