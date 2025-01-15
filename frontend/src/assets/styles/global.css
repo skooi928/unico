@@ -3,11 +3,6 @@
     --secondary-color: #dac7a2;
     --tertiary-color: #fff0e8;
     --button-color: #385731;
-    --color-text-primary: #000;
-    --color-text-primaryHover: rgba(0, 0, 0, 0.6);
-    --color-text-primaryLight: #fff;
-    --color-text-secondary: #6a6a6a;
-    --color-text-secondaryHover: rgba(106, 106, 106, 0.6);
-    --color-text-tertiary: #959595;
+    --button-hover-color: #294922;
 }
   
