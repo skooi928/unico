@@ -9,8 +9,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* background-color: var(--tertiary-color); if first home page is white bg */
-  background-color: transparent; /* if first home page is with picture */
+  background-color: transparent;
   padding: 10px 140px;
   position: fixed;
   top: 0;

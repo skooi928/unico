@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { Header } from "../../components";
 import carouselImages from "../../assets/Home/CarouselImage";
 import "./Home.css";
 
@@ -40,6 +41,7 @@ export const Home = () => {
 
   return (
     <div className="home-container">
+      <Header />
       <div className="carousel-container">
         <div
             className="slides-wrapper"

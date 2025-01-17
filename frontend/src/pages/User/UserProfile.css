@@ -1,0 +1,104 @@
+@import url("../../assets/styles/global.css");
+
+.user-profile .header-nav-link {
+    color: #000;
+}
+
+.user-profile .icon {
+    filter: invert(0);
+}
+
+.user-profile .header {
+    background-color: #f9f9f9;
+}
+
+.profile-container {
+    max-width: 700px;
+    height: 100vh;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-details {
+    display: flex;
+    flex-direction: column;
+    background: var(--tertiary-color);
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+    width: 100%;
+}
+
+.profile-row {
+    display: grid;
+    grid-template-columns: 0.5fr 2fr 1fr;
+    margin-bottom: 10px;
+}
+
+.userAttrType {
+    text-align: left;
+}
+
+.userAttrValue {
+    text-align: left;
+}
+
+.pencil-icon {
+    font-size: 14px;
+    text-align: right;
+    cursor: pointer;
+    float: right;
+}
+
+.profile-rowEdit {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.profile-rowEdit label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.profile-rowEdit input {
+    padding: 10px;
+    width: calc(100% - 20px);
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.profile-rowEdit button {
+    background-color: var(--button-color);
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 4px;
+    margin-top: 5px;
+}
+
+.profile-rowEdit button:hover {
+    background-color: var(--button-colorHover);
+}
+
+.logout-button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.logout-button:hover {
+    background-color: #c82333;
+}
