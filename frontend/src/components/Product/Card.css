@@ -1,0 +1,99 @@
+/* Card Container */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px; /* Space between cards */
+    justify-content: center; /* Center cards horizontally */
+    padding: 16px;
+}
+
+/* Card Styles */
+.card {
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Enhanced shadow for a more elevated look */
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Added transition for smooth hover effect */
+    height: 340px; /* Adjusted card height */
+    position: relative; /* Make card a reference point for absolutely positioned elements */
+}
+
+/* Hover effect */
+.card:hover {
+    transform: translateY(-10px); /* Card slightly lifts when hovered */
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+}
+
+/* Card Image */
+.card-img {
+    width: 100%;
+    height: 220px; /* Reduced image height */
+    object-fit: cover; /* Ensures the image fills the space without distortion */
+}
+
+/* Card Content */
+.card-content {
+    padding: 12px; /* Reduced padding */
+    height: calc(100% - 130px); /* Adjust content height based on image height */
+}
+
+/* Card Title */
+.card-title {
+    font-size: 1em;
+    margin: 0 0 8px;
+}
+
+/* Card Price */
+.card-price {
+    font-size: 1em;
+    font-weight: bold;
+    margin: 0 0 8px;
+}
+
+/* Card Size */
+.card-size {
+    font-size: 1em;
+    color: #555;
+}
+
+/* Card Category - Positioned to the left corner */
+.card-category {
+    position: absolute;
+    top: 8px; /* Adjust the distance from the top */
+    left: 8px; /* Adjust the distance from the left */
+    font-size: 0.9em;
+    font-weight: bold;
+    color: #fff; /* White color for better contrast */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background for better readability */
+    padding: 4px 8px; /* Padding around the category text */
+    border-radius: 4px; /* Rounded corners */
+}
+
+/* Remove underline from Link */
+.card-link {
+    text-decoration: none; /* Removes the underline */
+    color: inherit; /* Ensures the text color is inherited from the parent */
+}
+
+/* Media Query for Responsiveness */
+@media (max-width: 768px) {
+    .card-container {
+        gap: 12px; /* Reduce the gap on smaller screens */
+    }
+
+    .card {
+        width: 100%; /* Cards take full width on small screens */
+        max-width: 350px; /* Maximum width for larger cards */
+        height: 320px; /* Adjust height for small screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .card {
+        width: 100%; /* Cards take full width on very small screens */
+        max-width: 300px; /* Adjust for mobile */
+        height: 290px; /* Adjust height for mobile screens */
+    }
+}

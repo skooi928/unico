@@ -1,0 +1,81 @@
+/* Sidebar container styles */
+.sidebar {
+    width: 280px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+
+/* Sidebar menu styling */
+.sidebar-menu {
+    list-style-type: none;
+    padding: 0;
+}
+
+/* Individual sidebar item styling */
+.sidebar-item {
+    margin-bottom: 10px;
+}
+
+/* Expandable button styling */
+.sidebar-expandable {
+    cursor: pointer;
+    padding: 10px;
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    display: flex;
+    justify-content: space-between; /* Align arrow to the right */
+    align-items: center; /* Center items vertically */
+}
+
+/* Hover effect for expandable button */
+.sidebar-expandable:hover {
+    background-color: #bdbdbd;
+}
+
+/* Submenu list styles */
+.sidebar-submenu {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 5px;
+    border-left: 2px solid #4caf50; /* Green color for submenu indicator */
+}
+
+/* Submenu item styles */
+.sidebar-subitem {
+    margin-bottom: 5px;
+}
+
+/* Link styling for submenu items */
+.sidebar-subitem a {
+    text-decoration: none;
+    color: #333;
+    padding: 5px 10px;
+    display: block;
+}
+
+/* Hover effect for submenu items */
+.sidebar-subitem a:hover {
+    background-color: #ddd;
+}
+
+/* Arrow icon styling */
+.arrow1 {
+    font-size: 0.8rem; /* Set the desired size for the arrow */
+    font-weight: 100;
+    transition: transform 0.3s ease; /* Smooth rotation effect */
+}
+
+/* Arrow rotation when expanded */
+.arrow1.up {
+    transform: rotate(180deg); /* Flip the arrow to point up */
+}
+
+/* Arrow rotation when collapsed */
+.arrow1.down {
+    transform: rotate(0deg); /* Default down arrow */
+}

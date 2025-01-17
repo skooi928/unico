@@ -1,9 +1,8 @@
 export { Cart } from "./Cart";
 export { Home } from "./Home/Home";
 export { PageNotFound } from "./PageNotFound";
-export { Search } from "./Search";
-export { ULogin } from "./User/UserLogin";
-export { URegis } from "./User/UserRegister";
-export { UProfile } from "./User/UserProfile";
+export { ULogin } from "./User/UserLogin.jsx";
+export { URegis } from "./User/UserRegister.jsx";
+export { UProfile } from "./User/UserProfile.jsx";
 export { Product } from "./Product";
-export { VerifyEmail } from "./User/VerifyEmail";
+export { VerifyEmail } from "./User/VerifyEmail.jsx";

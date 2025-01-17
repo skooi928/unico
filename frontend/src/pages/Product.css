@@ -1,0 +1,44 @@
+/* Ensure the body takes up the full screen */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%; /* Ensure full width */
+}
+
+/* Style the MenImage to cover the screen */
+.menImage{
+    display:flex;
+    top: 0;
+    left: 0;
+    width:100vw;
+    height:100vh;
+    object-position: center center; /* Centers the image */}
+
+.product-container {
+    display: flex;
+}
+
+.card-container {
+    display: flex; /* Use flexbox for side-by-side layout */
+    gap: 10px; /* Space between the cards */
+    padding: 20px; /* Optional padding for the container */
+    flex-wrap: wrap; /* Ensure cards wrap to the next line if they don't fit */
+}
+
+.card-container > * {
+    flex: 1 1 250px; /* Set the cards to have a minimum width of 250px and flexible sizing */
+    max-width: 300px; /* Optional: Limit the maximum width of each card */
+}
+
+
+/* Style the heading */
+h1 {
+    position: relative;
+    color: black;
+    font-size: 3rem;
+    text-align: center;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+}

@@ -18,22 +18,22 @@ export const Header = () =>{
       <nav className="nav">
         <ul className="horizontal-list">
           <li>
-            <NavLink to="unico/product/men" className="header-nav-link" activeClassName="active">
+            <NavLink to="/product" className="header-nav-link" activeClassName="active">
               Men
             </NavLink>
           </li>
           <li>
-            <NavLink to="unico/product/women" className="header-nav-link" activeClassName="active">
+            <NavLink to="/product/women" className="header-nav-link" activeClassName="active">
               Women
             </NavLink>
           </li>
           <li>
-            <NavLink to="unico/product/kids" className="header-nav-link" activeClassName="active">
+            <NavLink to="/product/kids" className="header-nav-link" activeClassName="active">
               Kids
             </NavLink>
           </li>
           <li>
-            <NavLink to="unico/product/accesories" className="header-nav-link" activeClassName="active">
+            <NavLink to="/product/accesories" className="header-nav-link" activeClassName="active">
               Accessories
             </NavLink>
           </li>
