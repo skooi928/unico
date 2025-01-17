@@ -19,7 +19,7 @@ const Search = () => {
             <div className="search-icon-wrapper">
                 <img className="search-icon" src={Searchicon} alt="Search" />
                 <input
-                    type="text"
+                    type="keyword"
                     className="search-input"
                     placeholder="Search by keyword"
                     value={inputValue}
