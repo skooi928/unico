@@ -53,6 +53,7 @@ export const Product = () => {
                             name={product.name}
                             price={product.price}
                             size={product.size}
+                            addToCart={() => addToCart(product)}
                         />
                     ))}
                 </div>

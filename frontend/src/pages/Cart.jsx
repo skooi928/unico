@@ -1,14 +1,15 @@
- import React, { useState } from "react";
+import React, { useState } from "react";
 import "./Cart.css";
 import { Header } from "../components";
-import { useNavigate } from "react-router-dom"; // Assuming you're using React Router
+import { useNavigate } from "react-router-dom";
+import Card from '../components/Product/Card';
 
-export const Cart = () => {
-  const [cartItems, setCartItems] = useState([]);
-  const navigate = useNavigate(); // Hook for navigation
+export const Cart = ({ cartItems }) => {
+  
+  const navigate = useNavigate();
 
   const handleContinueShopping = () => {
-    navigate("/"); // Adjust the path to match your shopping page route
+    navigate("/");
   };
 
   return (
@@ -23,11 +24,18 @@ export const Cart = () => {
             </button>
           </div>
         ) : (
-          <ul>
-            {cartItems.map((item, index) => (
-              <li key={index}>{item.name}</li>
+          <div className="cart-items">
+            {cartItems.map((item) => (
+              <Card key={item.id}>
+                <div className="cart-item-card">
+                  <h3>{item.name}</h3>
+                  <p>{item.description}</p>
+                  <p>Price: ${item.price}</p>
+                  <span className="added-to-cart">Added to Cart</span>
+                </div>
+              </Card>
             ))}
-          </ul>
+          </div>
         )}
       </div>
     </div>
