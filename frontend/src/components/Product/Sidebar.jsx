@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 import './Sidebar.css';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa'; // Import arrows from react-icons
 
@@ -31,10 +32,10 @@ const Sidebar = ({ onPriceSelect }) => {
                     </div>
                     {expanded.gender && (
                         <ul className="sidebar-submenu">
-                            <li className="sidebar-subitem"><a href="#">All</a></li>
-                            <li className="sidebar-subitem"><a href="#Men">Men</a></li>
-                            <li className="sidebar-subitem"><a href="#Women">Women</a></li>
-                            <li className="sidebar-subitem"><a href="#Kids">Kids</a></li>
+                            <li className="sidebar-subitem"><NavLink to="/product">All</NavLink></li>
+                            <li className="sidebar-subitem"><NavLink to="/product#Men">Men</NavLink></li>
+                            <li className="sidebar-subitem"><NavLink to="/product#Women">Women</NavLink></li>
+                            <li className="sidebar-subitem"><NavLink to="/product#Kids">Kids</NavLink></li>
                         </ul>
                     )}
                 </li>
@@ -58,10 +59,10 @@ const Sidebar = ({ onPriceSelect }) => {
                     {expanded.price && (
                         <ul className="sidebar-submenu">
                             <li className="sidebar-subitem"><a href="#" onClick={() => onPriceSelect(0, Infinity)}>All</a></li>
-                            <li className="sidebar-subitem"><a href="#40-79" onClick={() => onPriceSelect(0, 49.99)}>RM 0 - RM 49.99</a></li>
-                            <li className="sidebar-subitem"><a href="#80-119" onClick={() => onPriceSelect(50, 99.99)}>RM 50 - RM 99.99</a></li>
-                            <li className="sidebar-subitem"><a href="#120-159" onClick={() => onPriceSelect(100, 149.99)}>RM 120 - RM 149.99</a></li>
-                            <li className="sidebar-subitem"><a href="#160-199" onClick={() => onPriceSelect(150, 9999999.99)}>RM 150 and above</a></li>
+                            <li className="sidebar-subitem"><a href="#" onClick={() => onPriceSelect(0, 49.99)}>RM 0 - RM 49.99</a></li>
+                            <li className="sidebar-subitem"><a href="#" onClick={() => onPriceSelect(50, 99.99)}>RM 50 - RM 99.99</a></li>
+                            <li className="sidebar-subitem"><a href="#" onClick={() => onPriceSelect(100, 149.99)}>RM 100 - RM 149.99</a></li>
+                            <li className="sidebar-subitem"><a href="#" onClick={() => onPriceSelect(150, Infinity)}>RM 150 and above</a></li>
                         </ul>
                     )}
                 </li>
