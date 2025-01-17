@@ -30,15 +30,3 @@ body, html {
     flex: 1 1 250px; /* Set the cards to have a minimum width of 250px and flexible sizing */
     max-width: 300px; /* Optional: Limit the maximum width of each card */
 }
-
-
-/* Style the heading */
-h1 {
-    position: relative;
-    color: black;
-    font-size: 3rem;
-    text-align: center;
-    width: 100%;
-    top: 50%;
-    transform: translateY(-50%);
-}
