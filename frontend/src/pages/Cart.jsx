@@ -1,46 +1,34 @@
-import React from "react";
+ import React, { useState } from "react";
 import "./Cart.css";
 import { Header } from "../components";
-
+import { useNavigate } from "react-router-dom"; // Assuming you're using React Router
 
 export const Cart = () => {
-  return (
-    <div className="shopping-cart-container">
-      <Header />   
-      <div className="empty-basket">
-        <div className="empty-icon">
-          <i className="fa fa-shopping-bag"></i>
-        </div>
-        <p>Your basket is empty</p>
-        <p>The items you add will be shown here</p>
-      </div>
+  const [cartItems, setCartItems] = useState([]);
+  const navigate = useNavigate(); // Hook for navigation
 
-      {/* Suggestions Section */}
-      <div className="suggestions">
-        <h2>YOU MAY ALSO LIKE</h2>
-        <div className="suggestions-items">
-          {/* Sample items, replace these with dynamic content */}
-          <div className="suggestion-item">
-            <img src="/images/sample-perfume.jpg" alt="Perfume" />
-            <p>RED ZARA TEMPTATION</p>
+  const handleContinueShopping = () => {
+    navigate("/"); // Adjust the path to match your shopping page route
+  };
+
+  return (
+    <div className="cart-page">
+      <Header />
+      <div className="cart-content">
+        {cartItems.length === 0 ? (
+          <div className="empty-cart">
+            <p>Cart is empty, add your items here</p>
+            <button className="continue-shopping-btn" onClick={handleContinueShopping}>
+              Continue Shopping
+            </button>
           </div>
-          <div className="suggestion-item">
-            <img src="/images/sample-jeans.jpg" alt="Jeans" />
-            <p>WIDE-LEG JEANS</p>
-          </div>
-          <div className="suggestion-item">
-            <img src="/images/sample-coat.jpg" alt="Coat" />
-            <p>BLACK COAT</p>
-          </div>
-          <div className="suggestion-item">
-            <img src="/images/sample-perfume2.jpg" alt="Perfume" />
-            <p>GOLDEN DELUXE</p>
-          </div>
-          <div className="suggestion-item">
-            <img src="/images/sample-jacket.jpg" alt="Leather Jacket" />
-            <p>LEATHER JACKET</p>
-          </div>
-        </div>
+        ) : (
+          <ul>
+            {cartItems.map((item, index) => (
+              <li key={index}>{item.name}</li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );

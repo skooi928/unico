@@ -1,4 +1,27 @@
-@import url("../../assets/styles/global.css");
+@import url('../assets/styles/global.css');
 
+.cart-page .icon {
+    filter: invert(0);
+}
 
+.cart-content {
+    margin-top: 80px;
+  }
 
+  .continue-shopping-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: var(--button-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 50px;
+    
+  }
+  
+  .continue-shopping-btn:hover {
+    background-color: var(--button-colorHover);
+  }
+  
