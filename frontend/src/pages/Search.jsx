@@ -3,15 +3,18 @@ import "./Search.css";
 import { FaTimes } from "react-icons/fa"; // Import Font Awesome icon
 import Searchicon from "../assets/Home/Search Icon.png";
 
-const Search = () => {
+const Search = ({ onSearch }) => {
     const [inputValue, setInputValue] = useState("");
 
     const handleInputChange = (e) => {
-        setInputValue(e.target.value);
+        const value = e.target.value;
+        setInputValue(value);
+        onSearch(value); // Call the onSearch function passed as a prop
     };
 
     const clearInput = () => {
         setInputValue("");
+        onSearch(""); // Clear the search input
     };
 
     return (

@@ -6,6 +6,18 @@ body, html {
     width: 100%; /* Ensure full width */
 }
 
+.product-page .header-nav-link {
+    color: #000;
+}
+
+.product-page .icon {
+    filter: invert(0);
+}
+
+.product-page .header {
+    background-color: #f9f9f9;
+}
+
 /* Style the MenImage to cover the screen */
 .menImage{
     display:flex;
@@ -18,6 +30,7 @@ body, html {
 .product-container {
     display: flex;
 }
+
 
 .card-container {
     display: flex; /* Use flexbox for side-by-side layout */
