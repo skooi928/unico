@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import Header from '../components/Header';
 import Men from "../assets/Product/Men.jpg";
 import Search from "./Search";
@@ -10,6 +11,10 @@ export const Product = () => {
     const [scrollPosition, setScrollPosition] = useState(0);
     const [productsData, setProductsData] = useState([]);
     const [searchKeyword, setSearchKeyword] = useState("");
+    const [selectedPriceRange, setSelectedPriceRange] = useState([0, Infinity]);
+
+    const location = useLocation();
+    const selectedCategory = location.hash.replace('#', '') || "";
 
     const handleScroll = () => {
         setScrollPosition(window.scrollY); // Update scroll position
@@ -41,11 +46,17 @@ export const Product = () => {
         setSearchKeyword(keyword);
     };
 
+    const handlePriceSelection = (min, max) => {
+        setSelectedPriceRange([min, max]);
+    };
+
     const filteredProducts = productsData.filter(product =>
-        product.name.toLowerCase().includes(searchKeyword.toLowerCase()) ||
+        (product.name.toLowerCase().includes(searchKeyword.toLowerCase()) ||
         product.description.toLowerCase().includes(searchKeyword.toLowerCase()) ||
         product.category.toLowerCase().includes(searchKeyword.toLowerCase()) ||
-        product.type.toLowerCase().includes(searchKeyword.toLowerCase())
+        product.type.toLowerCase().includes(searchKeyword.toLowerCase())) &&
+        (selectedCategory === "" || product.category.toLowerCase() === selectedCategory.toLowerCase()) &&
+        (product.price >= selectedPriceRange[0] && product.price <= selectedPriceRange[1])
     );
 
     return (
@@ -63,7 +74,7 @@ export const Product = () => {
             <Search onSearch={handleSearch} />
 
             <div className="product-container">
-                <Sidebar />
+                <Sidebar onPriceSelect={handlePriceSelection} />
                 <div className="card-container">
                     {filteredProducts.map((product) => (
                         <Card
@@ -73,7 +84,7 @@ export const Product = () => {
                             category={product.category}
                             name={product.name}
                             price={`RM${product.price}`}
-                            size={product.size}
+                            size={product.size ? product.size.join(", ") : "N/A"} // Add null check here
                         />
                     ))}
                 </div>
