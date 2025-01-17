@@ -1,13 +1,13 @@
 import { Routes, Route } from "react-router-dom";
-import { ULogin, URegis, UProfile, Home, Cart, PageNotFound, Product,VerifyEmail } from "../pages";
+import { ULogin, URegis, UProfile, Home, Cart, PageNotFound, Product, VerifyEmail } from "../pages";
 import ProductDetails from "../components/Product/ProductDetails";  // Ensure it's a default import
 import ProtectedRoute from "./ProtectedRoute";
-export const AllRoutes = () => {
 
+export const AllRoutes = () => {
   return (
     <div>
         <Routes>
-            <Route path="/"  element={<Home title="Home"/>}/>
+            <Route path="/" element={<Home title="Home"/>}/>
             <Route path="/product" element={<Product title="Product"/>}/>
             <Route path="/product/:id" element={<ProductDetails title="Product Details"/> } />
             <Route path="/login" element={<ULogin title="Login"/>}/>
