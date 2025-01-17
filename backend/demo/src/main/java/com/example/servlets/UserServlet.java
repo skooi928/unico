@@ -1,19 +1,29 @@
 package com.example.servlets;
 
-import java.io.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
-import javax.mail.MessagingException;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.Writer;
 import java.lang.reflect.Type;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
-import com.example.services.EmailService;
-import com.google.gson.JsonObject;
+
+import javax.mail.MessagingException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import com.example.models.User;
+import com.example.services.EmailService;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
 @WebServlet("/user")
 public class UserServlet extends HttpServlet {
@@ -24,6 +34,7 @@ public class UserServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
         setCorsHeaders(response);
+        System.out.println("UserServlet POST");
 
         // 1) Read JSON body from request
         StringBuilder sb = new StringBuilder();

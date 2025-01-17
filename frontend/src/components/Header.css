@@ -55,7 +55,7 @@ body {
   position: relative;
 }
 
-.header-nav-link.active::after {
+.header-nav-link.selected::after {
   content: "";
   display: block;
   height: 2px;
