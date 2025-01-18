@@ -1,65 +1,115 @@
 [
     {
-        "name": "Men's Casual Shirt",
-        "description": "A comfortable and stylish casual shirt for men.",
-        "price": 29.99,
-        "category": "men",
-        "type": "shirts"
+        "id": 1,
+        "image": ["/Product/ButtonlessPolo White.webp","/Product/Buttonless Polo Black.jpg","/Product/ButtonlessPolo Green.webp","/Product/ButtonlessPolo Grey.webp"],
+        "name": "Buttonless Polo",
+        "description": "Relaxed fit linen polo shirt with no button.",
+        "price": [199.99],
+        "color": ["#FFFFFF","#000","#645434","#c8c4c4"],
+        "size": ["XS","S","M","L","XL","XXL"],
+        "category": "Men",
+        "type": "Polo"
     },
     {
-        "name": "Women's Summer Dress",
-        "description": "A light and breezy summer dress for women.",
-        "price": 49.99,
-        "category": "women",
-        "type": "dresses"
+        "id": 2,
+        "image": ["/Product/T-shirt-black.webp","/Product/T-shirt-blue.webp", "/Product/T-shirt-brown.webp"],
+        "name": "Solid Bamboo Fibre T-Shirt",
+        "description": "Made from bamboo fibers (a super sustainable raw material), our Solid Tees offer a luxuriously soft feel on the skin and unbeatable comfort. Highly breathable and anti-allergenic, this men's t-shirt is perfect for everyday wear and you'll look amazing either at home or on the go.\n\nMade with 93% Bamboo Lyocell and 7% Elastane\n\nThink of Bamboo Lyocell as an upgraded, eco-friendlier version of bamboo viscose (the generally cheaper and more abundant fabric). Bamboo Lyocell fabric is created by adopting a closed-loop process using a non-toxic solvent, amine oxide, which dissolves bamboo. With this process, 99% of the chemicals and water used are reclaimed and reused in the next stage of the production process, greatly reducing water consumption.",
+        "price": [59.99],
+        "color": ["0000000","#87CEEB","#964B00"],
+        "size": ["XS","S","M","L","XL","XXL"],
+        "category": "Men",
+        "type": "Tee"
     },
     {
-        "name": "Kids' T-Shirt",
-        "description": "A fun and colorful t-shirt for kids.",
-        "price": 15.99,
-        "category": "kids",
-        "type": "shirts"
+        "id": 3,
+        "image": ["/Product/DoubleButton-Brown.webp","/Product/DoubleButton-Green.webp"],
+        "name": "Double Button Shirt",
+        "description": "A classic button down shirt made double breasted, made in 3 different type of fabric.",
+        "price": [119.99],
+        "color": ["#90EE90","#964B00"],
+        "size": ["XS","S","M","L","XL","XXL"],
+        "category": "Men",
+        "type": "Shirt"
     },
     {
-        "name": "Men's Jeans",
-        "description": "Classic denim jeans for men.",
-        "price": 39.99,
-        "category": "men",
-        "type": "pants"
+        "id": 4,
+        "image": ["/Product/Candle-Mangosteen.webp","/Product/Candle-Mangosteen2.webp"],
+        "name": "Organic Soy Wax Candle - Tiger Lily & Orange",
+        "description": "The fresh smell of fresh-cut tiger lilies, with a base note of fresh lilacs, a hint of fresh greenery and orange creates an effervescent top note for this exotic scent",
+        "price": [35.00, 75.00],
+        "size": ["65g","180g"],
+        "category": "Accessories",
+        "type": "candle"
     },
     {
-        "name": "Women's Handbag",
-        "description": "A stylish handbag for women.",
-        "price": 79.99,
-        "category": "women",
-        "type": "accessories"
+        "id": 5,
+        "image": ["/Product/Case-Blue.webp", "/Product/Case-Green.webp", "/Product/Case-Orange.webp"],
+        "name": "Batik Series iPad Case",
+        "description": "Protect your tech with our new range of Batik ipad Cases kitted out in trending Batik Motifs. Created to keep your tech safe on the go with Batik Lining inside.",
+        "price": [75.99],
+        "color": ["#00008B","#90EE90","#FFD580"],
+        "category": "Accessories",
+        "type": "stationery"
     },
     {
-        "name": "Kids' Sneakers",
-        "description": "Comfortable and durable sneakers for kids.",
-        "price": 25.99,
-        "category": "kids",
-        "type": "shoes"
+        "id": 6,
+        "image": ["/Product/Crop-Brown.jpg","/Product/Crop-White.jpg"],
+        "name": "Ribbon Crop Top",
+        "description": "Featuring roomy long sleeves and ribbon details, a crop top you would love!",
+        "price":[89.99],
+        "size": ["XS","S","M","L","XL","XXL"],
+        "category": "Women",
+        "type": "crop"
     },
     {
-        "name": "Men's Jacket",
-        "description": "A warm and fashionable jacket for men.",
-        "price": 59.99,
-        "category": "men",
-        "type": "outerwear"
+        "id": 7,
+        "image": ["/Product/Top-Grey.webp","/Product/Top-Pink.webp"],
+        "name": "Bamboo Sateen Hang Loose Top",
+        "description": "This cropped, short-sleeved button top is made from 100% Bamboo Sateen to keep you silky cool all day and night.",
+        "price": [59.99],
+        "size": ["XS","S","M","L","XL","XXL"],
+        "category": "Women",
+        "type": "top"
     },
     {
-        "name": "Women's Scarf",
-        "description": "A soft and elegant scarf for women.",
-        "price": 19.99,
-        "category": "women",
-        "type": "accessories"
+        "id": 8,
+        "image": ["/Product/Tee-Blue.webp","/Product/Tee-Grey.webp","/Product/Tee-Red.webp"],
+        "name": "Solid Baby Tee",
+        "description": "The Solid Baby Tee delivers softness and versatility for every occasion. Tuck it into high-waisted jeans or rock it with leggings to the gym - looking good never felt so comfortable.",
+        "price": [39.99],
+        "size": ["XS","S","M","L","XL","XXL"],
+        "category": "Women",
+        "type": "top"
     },
     {
-        "name": "Kids' Pajamas",
-        "description": "Cozy and cute pajamas for kids.",
-        "price": 22.99,
-        "category": "kids",
-        "type": "sleepwear"
+        "id":9,
+        "image": ["/Product/Gamester.webp","/Product/Gamester-Back.webp"],
+        "name": "Gamester Casual Boxy Cut Boy Top",
+        "description": "Boy casual tee, Round neckline, Short sleeve, Embroidery design on detailing, Off white colour.",
+        "size": ["XS","S","M","L","XL","XXL"],
+        "price": [29.99],
+        "category": "Kids",
+        "type": "boy"
+    },
+    {
+        "id":10,
+        "image": ["/Product/PoloTee.webp","/Product/PoloTee-Back.webp"],
+        "name": "Polo Tee Kids Girl",
+        "description": "Girl casual polo tee, Johnny neckline, Short sleeve, Embroidery design on detailing, Off white colour.",
+        "size": ["XS","S","M","L","XL","XXL"],
+        "price": [29.99],
+        "category": "Kids",
+        "type": "girl"
+    },
+    {
+        "id":11,
+        "image": ["/Product/Cardigan.webp","/Product/Cardigan-Back.webp"],
+        "name": "Long Sleeve Cardigan Kids Girl",
+        "description": "Girl casual cardigan, V-neckline with drawstring closure, Long sleeve, Knit wear, Beige colour.",
+        "size": ["XS","S","M","L","XL","XXL"],
+        "price": [49.99],
+        "category": "Kids",
+        "type": "girl"
     }
 ]

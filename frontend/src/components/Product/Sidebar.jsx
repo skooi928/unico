@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 import './Sidebar.css';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa'; // Import arrows from react-icons
 
-const Sidebar = () => {
+const Sidebar = ({ onPriceSelect }) => {
     const [expanded, setExpanded] = useState({ gender: false, price: false });
 
     const toggleMenu = (menu) => {
@@ -30,9 +32,10 @@ const Sidebar = () => {
                     </div>
                     {expanded.gender && (
                         <ul className="sidebar-submenu">
-                            <li className="sidebar-subitem"><a href="#men">Men</a></li>
-                            <li className="sidebar-subitem"><a href="#women">Women</a></li>
-                            <li className="sidebar-subitem"><a href="#kid">Kid</a></li>
+                            <li className="sidebar-subitem"><NavLink to="/product">All</NavLink></li>
+                            <li className="sidebar-subitem"><NavLink to="/product#Men">Men</NavLink></li>
+                            <li className="sidebar-subitem"><NavLink to="/product#Women">Women</NavLink></li>
+                            <li className="sidebar-subitem"><NavLink to="/product#Kids">Kids</NavLink></li>
                         </ul>
                     )}
                 </li>
@@ -55,16 +58,21 @@ const Sidebar = () => {
                     </div>
                     {expanded.price && (
                         <ul className="sidebar-submenu">
-                            <li className="sidebar-subitem"><a href="#40-79">RM 40 - RM 79.99</a></li>
-                            <li className="sidebar-subitem"><a href="#80-119">RM 80 - RM 119.99</a></li>
-                            <li className="sidebar-subitem"><a href="#120-159">RM 120 - RM 159.99</a></li>
-                            <li className="sidebar-subitem"><a href="#160-199">RM 160 - RM 199.99</a></li>
+                            <li className="sidebar-subitem"><a href="#" onClick={() => onPriceSelect(0, Infinity)}>All</a></li>
+                            <li className="sidebar-subitem"><a href="#" onClick={() => onPriceSelect(0, 49.99)}>RM 0 - RM 49.99</a></li>
+                            <li className="sidebar-subitem"><a href="#" onClick={() => onPriceSelect(50, 99.99)}>RM 50 - RM 99.99</a></li>
+                            <li className="sidebar-subitem"><a href="#" onClick={() => onPriceSelect(100, 149.99)}>RM 100 - RM 149.99</a></li>
+                            <li className="sidebar-subitem"><a href="#" onClick={() => onPriceSelect(150, Infinity)}>RM 150 and above</a></li>
                         </ul>
                     )}
                 </li>
             </ul>
         </div>
     );
+};
+
+Sidebar.propTypes = {
+    onPriceSelect: PropTypes.func.isRequired,
 };
 
 export default Sidebar;
