@@ -10,6 +10,7 @@ import {
   VerifyEmail,
   About,
   ProductDetails,
+  Payment,
 } from "../pages";
 import ProtectedRoute from "./ProtectedRoute";
 
@@ -35,6 +36,7 @@ export const AllRoutes = () => {
           }
         />
         <Route path="/cart" element={<Cart title="Cart" />} />
+        <Route path="/payment" element={<Payment title="Payment" />} />
         <Route path="/about" element={<About title="About" />} />
         <Route path="*" element={<PageNotFound title="Page Not Found" />} />
       </Routes>

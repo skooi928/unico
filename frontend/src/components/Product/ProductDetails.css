@@ -178,6 +178,34 @@
     background-color: #385731;
 }
 
+.stock-quantity-container {
+    margin: 15px 0;
+  }
+  
+  .stock-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .stock-controls button {
+    padding: 5px 15px;
+    border: 1px solid #ccc;
+    background: white;
+    cursor: pointer;
+  }
+  
+  .stock-controls button:disabled {
+    background: #eee;
+    cursor: not-allowed;
+  }
+  
+  .stock-controls span {
+    min-width: 30px;
+    text-align: center;
+  }
+
 @media (max-width: 768px) {
     .product-details-container {
         flex-direction: column;

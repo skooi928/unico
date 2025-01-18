@@ -18,7 +18,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class ProductServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         setCorsHeaders(response);
         response.setContentType("application/json");
         ObjectMapper objectMapper = new ObjectMapper();
@@ -31,7 +32,8 @@ public class ProductServlet extends HttpServlet {
                     return;
                 }
 
-                List<Product> products = objectMapper.readValue(inputStream, objectMapper.getTypeFactory().constructCollectionType(List.class, Product.class));
+                List<Product> products = objectMapper.readValue(inputStream,
+                        objectMapper.getTypeFactory().constructCollectionType(List.class, Product.class));
                 response.getWriter().write(objectMapper.writeValueAsString(products));
             } catch (IOException e) {
                 response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
@@ -45,8 +47,10 @@ public class ProductServlet extends HttpServlet {
                     return;
                 }
 
-                List<Product> products = objectMapper.readValue(inputStream, objectMapper.getTypeFactory().constructCollectionType(List.class, Product.class));
-                Optional<Product> product = products.stream().filter(p -> String.valueOf(p.getId()).equals(id)).findFirst();
+                List<Product> products = objectMapper.readValue(inputStream,
+                        objectMapper.getTypeFactory().constructCollectionType(List.class, Product.class));
+                Optional<Product> product = products.stream().filter(p -> String.valueOf(p.getId()).equals(id))
+                        .findFirst();
                 if (product.isPresent()) {
                     response.getWriter().write(objectMapper.writeValueAsString(product.get()));
                 } else {

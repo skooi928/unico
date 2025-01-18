@@ -18,46 +18,50 @@ export const CartProvider = ({ children }) => {
     }
   }, [userEmail]);
 
-  const addToCart = (item, email) => {
-    const currentUserEmail = email || userEmail; // Use provided email or fallback to userEmail
-    setCartItems((prevItems) => {
-      const safePrevItems = Array.isArray(prevItems) ? prevItems : [];
-      const existingItem = safePrevItems.find(
-        (cartItem) =>
-          cartItem.id === item.id &&
-          cartItem.size === item.size &&
-          cartItem.color === item.color &&
-          cartItem.userEmail === currentUserEmail // Check userEmail
-      );
-      let updatedCartItems;
-      if (existingItem) {
-        updatedCartItems = safePrevItems.map((cartItem) =>
-          cartItem.id === item.id &&
-          cartItem.size === item.size &&
-          cartItem.color === item.color &&
-          cartItem.userEmail === currentUserEmail // Check userEmail
-            ? { ...cartItem, quantity: cartItem.quantity + 1 }
-            : cartItem
+  const addToCart = async (item, email) => {
+    const currentUserEmail = email || userEmail;
+
+    // First persist cart items to the server
+    try {
+      const response = await fetch("http://localhost:8080/api/cart", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...item, userEmail: currentUserEmail }),
+      });
+      const data = await response.json();
+      console.log("Item added to cart:", data);
+
+      // Then update local state
+      setCartItems((prevItems) => {
+        const safePrevItems = Array.isArray(prevItems) ? prevItems : [];
+        const existingItem = safePrevItems.find(
+          (cartItem) =>
+            cartItem.id === item.id &&
+            cartItem.size === item.size &&
+            cartItem.color === item.color &&
+            cartItem.userEmail === currentUserEmail
         );
-      } else {
-        updatedCartItems = [
+
+        if (existingItem) {
+          return safePrevItems.map((cartItem) =>
+            cartItem.id === item.id &&
+            cartItem.size === item.size &&
+            cartItem.color === item.color &&
+            cartItem.userEmail === currentUserEmail
+              ? { ...cartItem, quantity: cartItem.quantity + 1 }
+              : cartItem
+          );
+        }
+
+        return [
           ...safePrevItems,
           { ...item, quantity: 1, userEmail: currentUserEmail },
         ];
-      }
-
-      // Persist cart items to the server
-      fetch("http://localhost:8080/api/cart", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...item, userEmail: currentUserEmail }), // Include userEmail
-      })
-        .then((response) => response.json())
-        .then((data) => console.log("Item added to cart:", data))
-        .catch((error) => console.error("Error adding item to cart:", error));
-
-      return updatedCartItems;
-    });
+      });
+    } catch (error) {
+      console.error("Error adding item to cart:", error);
+      throw error;
+    }
   };
 
   return (

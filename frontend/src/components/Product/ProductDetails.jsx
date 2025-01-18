@@ -10,6 +10,9 @@ export const ProductDetails = () => {
   const navigate = useNavigate();
   const [product, setProduct] = useState(null);
   const { addToCart } = useCart();
+  const [currentStock, setCurrentStock] = useState(null);
+  const [stockIndex, setStockIndex] = useState(null);
+  const [quantity, setQuantity] = useState(1);
 
   // State for selected size and color
   const [selectedSize, setSelectedSize] = useState(null);
@@ -19,6 +22,16 @@ export const ProductDetails = () => {
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showPopup, setShowPopup] = useState(false);
+
+  const [isStockUpdating, setIsStockUpdating] = useState(false);
+
+  // Add getStockForSizeAndColor function
+  const getStockForSizeAndColor = (sizeIndex, colorIndex) => {
+    if (!product.stock || !product.size || !product.color) return null;
+    const newStockIndex = colorIndex + sizeIndex * product.color.length;
+    setStockIndex(newStockIndex);
+    return product.stock[newStockIndex];
+  };
 
   useEffect(() => {
     fetch(`http://localhost:8080/api/products/${id}`)
@@ -45,18 +58,92 @@ export const ProductDetails = () => {
 
   const handleSizeSelection = (size, index) => {
     setSelectedSize((prevSize) => (prevSize === size ? null : size));
-    setSelectedSizeIndex((prevIndex) => (prevIndex === index ? null : index));
+    setSelectedSizeIndex((prevIndex) => {
+      const newIndex = prevIndex === index ? null : index;
+      if (newIndex !== null && selectedColor) {
+        const colorIndex = product.color.indexOf(selectedColor);
+        const newStockIndex = colorIndex + newIndex * product.color.length;
+        setStockIndex(newStockIndex);
+        setCurrentStock(product.stock[newStockIndex]);
+        setQuantity(1);
+      }
+      return newIndex;
+    });
     setDisplayPrice(
       Array.isArray(product.price)
         ? product.price[index].toFixed(2)
         : product.price.toFixed(2)
-    ); // Update price based on selected size
+    );
   };
 
   const handleColorSelection = (color) => {
     const colorIndex = product.color.indexOf(color);
-    setSelectedColor((prevColor) => (prevColor === color ? null : color));
+    setSelectedColor((prevColor) => {
+      const newColor = prevColor === color ? null : color;
+      if (newColor && selectedSizeIndex !== null) {
+        const newStockIndex =
+          colorIndex + selectedSizeIndex * product.color.length;
+        setStockIndex(newStockIndex);
+        setCurrentStock(product.stock[newStockIndex]);
+        setQuantity(1);
+      }
+      return newColor;
+    });
     setCurrentImageIndex(colorIndex);
+  };
+
+  const handleQuantityChange = (change) => {
+    if (!currentStock || stockIndex === null) return;
+    setQuantity((prev) => Math.max(1, Math.min(prev + change, currentStock)));
+  };
+
+  const handleAddToCart = async () => {
+    if (
+      selectedSize &&
+      selectedColor &&
+      currentStock > 0 &&
+      quantity <= currentStock
+    ) {
+      setIsStockUpdating(true);
+      try {
+        // Wait for cart update to complete
+        await addToCart({
+          id: product.id,
+          name: product.name,
+          image: product.image[currentImageIndex],
+          size: selectedSize,
+          color: selectedColor,
+          price: product.price,
+          category: product.category,
+          quantity: quantity,
+        });
+
+        // Then fetch updated product data
+        const response = await fetch(
+          `http://localhost:8080/api/products/${id}`
+        );
+        const updatedData = await response.json();
+
+        setProduct(updatedData);
+        setDisplayPrice(
+          Array.isArray(updatedData.price)
+            ? updatedData.price[0].toFixed(2)
+            : updatedData.price.toFixed(2)
+        );
+        if (stockIndex !== null) {
+          setCurrentStock(updatedData.stock[stockIndex]);
+        }
+
+        setShowPopup(true);
+        setQuantity(1);
+      } catch (error) {
+        console.error("Error updating cart and fetching stock:", error);
+      } finally {
+        setIsStockUpdating(false);
+      }
+    } else {
+      alert("Please select size and color!");
+    }
   };
 
   const nextImage = () => {
@@ -74,37 +161,11 @@ export const ProductDetails = () => {
   };
 
   const isAddToCartDisabled = () => {
+    if (currentStock === 0) return true;
     if (product.size && product.size.length > 0) {
       return !selectedSize || !selectedColor;
     }
     return !selectedColor;
-  };
-
-  const handleAddToCart = () => {
-    if (selectedSize && selectedColor) {
-      addToCart({
-        id: product.id,
-        name: product.name,
-        image: product.image[currentImageIndex], // Use the current image
-        size: selectedSize,
-        color: selectedColor,
-        price: product.price,
-        category: product.category,
-      });
-      setShowPopup(true); // Show the popup message
-    } else if (product.category.toLowerCase() === "accessories") {
-      addToCart({
-        id: product.id,
-        name: product.name,
-        image: product.image[currentImageIndex], // Use the current image
-        color: selectedColor,
-        price: product.price,
-        category: product.category,
-      });
-      setShowPopup(true); // Show the popup message
-    } else {
-      alert("Please select size and color!");
-    }
   };
 
   const handleViewCart = () => {
@@ -200,12 +261,37 @@ export const ProductDetails = () => {
           </div>
 
           <p className="description">{product.description}</p>
+
+          {currentStock !== null && (
+            <div className="stock-quantity-container">
+              <p className="stock-info">
+                Available Stock:{" "}
+                {isStockUpdating ? "Updating..." : currentStock}
+              </p>
+              <div className="stock-controls">
+                <button
+                  onClick={() => handleQuantityChange(-1)}
+                  disabled={quantity <= 1 || isStockUpdating}
+                >
+                  -
+                </button>
+                <span>{quantity}</span>
+                <button
+                  onClick={() => handleQuantityChange(1)}
+                  disabled={quantity >= currentStock || isStockUpdating}
+                >
+                  +
+                </button>
+              </div>
+            </div>
+          )}
+
           <button
             className="add-to-cart-btn"
             disabled={isAddToCartDisabled()} // Disable "Add to Cart" button based on size and color selection
             onClick={handleAddToCart}
           >
-            ADD TO CART
+            {currentStock === 0 ? "OUT OF STOCK" : "ADD TO CART"}
           </button>
         </div>
       </div>

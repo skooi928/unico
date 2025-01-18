@@ -114,7 +114,9 @@ export const Cart = () => {
               </button>
               <button
                 className="proceed-payment-btn"
-                onClick={() => navigate("/payment", { state: { cartItems } })}
+                onClick={() =>
+                  navigate("/payment", { state: { items: cartItems } })
+                }
               >
                 Proceed to Payment
               </button>

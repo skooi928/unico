@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.example.models.Cart;
+import com.example.models.Product;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -51,20 +53,81 @@ public class CartServlet extends HttpServlet {
         }
     }
 
+    // Update product stock after adding to cart or deleting from cart
+    private void updateProductStock(int productId, String size, String color, int quantity) throws IOException {
+        String productPath = getServletContext().getRealPath("/WEB-INF/data/product.json");
+        ObjectMapper mapper = new ObjectMapper();
+        List<Product> products = mapper.readValue(new File(productPath),
+                mapper.getTypeFactory().constructCollectionType(List.class, Product.class));
+
+        for (Product product : products) {
+            if (product.getId() == productId) {
+                int sizeIndex = product.getSize().indexOf(size);
+                int colorIndex = product.getColor().indexOf(color);
+                // Calculate stock index based on size and color
+                // For each size, increment through all colors first
+                int stockIndex = colorIndex + (sizeIndex * product.getColor().size());
+
+                List<Integer> stockList = product.getStock();
+                int currentStock = stockList.get(stockIndex);
+                // Ensure stock doesn't go below 0
+                int newStock = Math.max(0, currentStock - quantity);
+                stockList.set(stockIndex, newStock);
+                break;
+            }
+        }
+
+        mapper.writeValue(new File(productPath), products);
+    }
+
     // GET to retrieve all cart items for a specific user
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         addCorsHeaders(response);
         String realPath = getServletContext().getRealPath("/WEB-INF/data/cart.json");
+        String productPath = getServletContext().getRealPath("/WEB-INF/data/product.json");
         List<Cart> cartItems = loadCartItems(realPath);
+
+        // Load products to check stock
+        ObjectMapper mapper = new ObjectMapper();
+        List<Product> products = mapper.readValue(new File(productPath),
+                mapper.getTypeFactory().constructCollectionType(List.class, Product.class));
 
         String userEmail = request.getParameter("userEmail");
         List<Cart> userCartItems = new ArrayList<>();
+        boolean needsSaving = false;
+
         for (Cart item : cartItems) {
             if (item.getUserEmail().equals(userEmail)) {
-                userCartItems.add(item);
+                // Find corresponding product and check stock
+                for (Product product : products) {
+                    if (product.getId() == item.getId()) {
+                        int sizeIndex = product.getSize().indexOf(item.getSize());
+                        int colorIndex = product.getColor().indexOf(item.getColor());
+                        int stockIndex = colorIndex + (sizeIndex * product.getColor().size());
+
+                        int availableStock = product.getStock().get(stockIndex);
+                        if (availableStock < item.getQuantity()) {
+                            // Update quantity if stock is insufficient
+                            item.setQuantity(availableStock);
+                            needsSaving = true;
+                        }
+                        // Only add item if stock > 0
+                        if (availableStock > 0) {
+                            userCartItems.add(item);
+                        } else {
+                            needsSaving = true; // Remove item if stock is 0
+                        }
+                        break;
+                    }
+                }
             }
+        }
+
+        // Save updated cart if quantities were adjusted
+        if (needsSaving) {
+            saveCartItems(realPath, cartItems);
         }
 
         response.setContentType("application/json");
@@ -97,11 +160,13 @@ public class CartServlet extends HttpServlet {
                     item.getUserEmail().equals(newItem.getUserEmail())) { // Check userEmail
                 item.setQuantity(item.getQuantity() + newItem.getQuantity()); // Update quantity
                 found = true;
+                updateProductStock(item.getId(), item.getSize(), item.getColor(), newItem.getQuantity());
                 break;
             }
         }
         if (!found) {
             cartItems.add(newItem);
+            updateProductStock(newItem.getId(), newItem.getSize(), newItem.getColor(), newItem.getQuantity());
         }
 
         // save to cart.json
@@ -119,19 +184,26 @@ public class CartServlet extends HttpServlet {
         String realPath = getServletContext().getRealPath("/WEB-INF/data/cart.json");
         List<Cart> cartItems = loadCartItems(realPath);
 
-        // parse incoming JSON
         BufferedReader reader = request.getReader();
         Cart itemToRemove = gson.fromJson(reader, Cart.class);
 
-        // remove item from cart
+        for (Cart item : cartItems) {
+            if (item.getId() == itemToRemove.getId() &&
+                    item.getSize().equals(itemToRemove.getSize()) &&
+                    item.getColor().equals(itemToRemove.getColor()) &&
+                    item.getUserEmail().equals(itemToRemove.getUserEmail())) {
+                // Restore stock when removing item
+                updateProductStock(item.getId(), item.getSize(), item.getColor(), -item.getQuantity());
+                break;
+            }
+        }
+
         cartItems.removeIf(item -> item.getId() == itemToRemove.getId() &&
                 item.getSize().equals(itemToRemove.getSize()) &&
                 item.getColor().equals(itemToRemove.getColor()) &&
-                item.getUserEmail().equals(itemToRemove.getUserEmail())); // Check userEmail
+                item.getUserEmail().equals(itemToRemove.getUserEmail()));
 
-        // save to cart.json
         saveCartItems(realPath, cartItems);
-
         response.setContentType("application/json");
         response.getWriter().write("{\"message\": \"Item removed from cart\"}");
     }
