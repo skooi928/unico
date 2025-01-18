@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import './Card.css';
 
 const Card = ({ id, image, category, name, price, size, onAddToCart }) => {
-    const sizeText = Array.isArray(size) ? size.join(', ') : size;
+    const sizeText = Array.isArray(size) ? size.join(', ') : "";
+    const displayPrice = Array.isArray(price) ? price[0].toFixed(2) : price.toFixed(2);
 
     return (
         <Link to={`/product/${id}`} className="card-link">
@@ -13,8 +14,8 @@ const Card = ({ id, image, category, name, price, size, onAddToCart }) => {
                 <div className="card-content">
                     <p className="card-category">{category}</p>
                     <p className="card-title">{name}</p>
-                    <p className="card-price">{price}</p>
-                    {size && <p className="card-size">Size: {sizeText}</p>}
+                    <p className="card-price">RM {displayPrice}</p>
+                    {size && size.length > 0 && <p className="card-size">Size: {sizeText}</p>}
                     {/* <button onClick={onAddToCart}>
                         Add to Cart
                     </button> */}
@@ -29,7 +30,10 @@ Card.propTypes = {
     image: PropTypes.string.isRequired,
     category: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    price: PropTypes.string.isRequired,
+    price: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.arrayOf(PropTypes.number)
+    ]).isRequired,
     size: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.arrayOf(PropTypes.string)

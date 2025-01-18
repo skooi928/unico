@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import Header from '../components/Header';
 import Men from "../assets/Product/Men.jpg";
@@ -13,21 +13,31 @@ export const Product = () => {
     const [productsData, setProductsData] = useState([]);
     const [searchKeyword, setSearchKeyword] = useState("");
     const [selectedPriceRange, setSelectedPriceRange] = useState([0, Infinity]);
+    const [hasScrolled, setHasScrolled] = useState(false);
 
     const location = useLocation();
     const selectedCategory = location.hash.replace('#', '') || "";
     const { addToCart } = useCart();
 
-    const handleScroll = () => {
+    const searchRef = useRef(null);
+
+    const handleWheel = (event) => {
+        if (event.deltaY > 0 && window.scrollY === 0 && searchRef.current) {
+            window.scrollTo({
+                top: searchRef.current.offsetTop - 90,
+                behavior: 'smooth'
+            });
+            setHasScrolled(true);
+        }
         setScrollPosition(window.scrollY); // Update scroll position
     };
 
     useEffect(() => {
-        window.addEventListener("scroll", handleScroll); // Add scroll listener
+        window.addEventListener("wheel", handleWheel); // Add wheel listener
         return () => {
-            window.removeEventListener("scroll", handleScroll); // Cleanup listener
+            window.removeEventListener("wheel", handleWheel); // Cleanup listener
         };
-    }, []);
+    }, [hasScrolled]);
 
     useEffect(() => {
         fetch('http://localhost:8080/api/products')
@@ -58,7 +68,7 @@ export const Product = () => {
         product.category.toLowerCase().includes(searchKeyword.toLowerCase()) ||
         product.type.toLowerCase().includes(searchKeyword.toLowerCase())) &&
         (selectedCategory === "" || product.category.toLowerCase() === selectedCategory.toLowerCase()) &&
-        (product.price >= selectedPriceRange[0] && product.price <= selectedPriceRange[1])
+        (product.price[0] >= selectedPriceRange[0] && product.price[0] <= selectedPriceRange[1])
     );
 
     return (
@@ -73,7 +83,9 @@ export const Product = () => {
                     transform: `scale(${Math.max(1 - scrollPosition / 1000, 0.8)})`, // Shrink effect
                 }}
             />
-            <Search onSearch={handleSearch} />
+            <div ref={searchRef}>
+                <Search onSearch={handleSearch} />
+            </div>
 
             <div className="product-container">
                 <Sidebar onPriceSelect={handlePriceSelection} />
@@ -85,8 +97,8 @@ export const Product = () => {
                             image={product.image[0]} // Display the first image
                             category={product.category}
                             name={product.name}
-                            price={`RM${product.price}`}
-                            size={product.size ? product.size.join(", ") : "N/A"} // Add null check here
+                            price={product.price} // Pass the price array
+                            size={product.size} // Pass the size array directly
                             onAddToCart={() => addToCart(product)} // Add to cart handler
                         />
                     ))}

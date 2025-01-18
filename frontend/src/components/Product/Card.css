@@ -36,7 +36,6 @@
 /* Card Content */
 .card-content {
     padding: 12px; /* Reduced padding */
-    height: calc(100% - 130px); /* Adjust content height based on image height */
 }
 
 /* Card Title */
