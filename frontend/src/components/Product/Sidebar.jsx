@@ -16,8 +16,14 @@ const Sidebar = ({ onPriceSelect }) => {
     const isActive = (hash) => location.hash === hash;
 
     const handlePriceSelect = (min, max) => {
-        setSelectedPriceRange([min, max]);
-        onPriceSelect(min, max);
+        if (selectedPriceRange[0] === min && selectedPriceRange[1] === max) {
+            // Deselect if the same range is clicked again
+            setSelectedPriceRange([0, Infinity]);
+            onPriceSelect(0, Infinity);
+        } else {
+            setSelectedPriceRange([min, max]);
+            onPriceSelect(min, max);
+        }
     };
 
     const isPriceActive = (min, max) => selectedPriceRange[0] === min && selectedPriceRange[1] === max;
@@ -97,18 +103,6 @@ const Sidebar = ({ onPriceSelect }) => {
                     </div>
                     {expanded.price && (
                         <ul className="sidebar-submenu">
-                            <li className="sidebar-subitem">
-                                <NavLink
-                                    to="#price-all"
-                                    className={isPriceActive(0, Infinity) ? 'active-link' : ''}
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        handlePriceSelect(0, Infinity);
-                                    }}
-                                >
-                                    All
-                                </NavLink>
-                            </li>
                             <li className="sidebar-subitem">
                                 <NavLink
                                     to="#price-0-49"

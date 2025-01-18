@@ -6,8 +6,9 @@
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
     flex-shrink: 0; /* Prevent the sidebar from shrinking in flex containers */
+    height: 100vh; /* Fixed height to the screen */
+    overflow-y: auto; /* Enable vertical scrolling if content overflows */
 }
 
 /* Sidebar menu styling */
