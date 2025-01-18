@@ -1,12 +1,15 @@
-import { Header, Footer } from './components';
+import { Footer } from './components';
 import { AllRoutes } from "./routes/AllRoutes"
+import { CartProvider } from "./pages/Cart/CartContext";
 import './App.css';
 
 function App() {
   return (
     <>
-      <AllRoutes/>
-      <Footer/>
+      <CartProvider>
+        <AllRoutes/>
+        <Footer/>
+      </CartProvider>
     </>
   );
 }

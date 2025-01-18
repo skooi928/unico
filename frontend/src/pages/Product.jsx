@@ -84,7 +84,7 @@ export const Product = () => {
                             category={product.category}
                             name={product.name}
                             price={`RM${product.price}`}
-                            size={product.size ? product.size.join(", ") : "N/A"} // Add null check here
+                            size={product.size ? product.size.join(", ") : "N/A"} // Add null check here                     
                         />
                     ))}
                 </div>

@@ -1,35 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import './Card.css';
-import { setCartItems } from '../../pages/Cart/Cart';
+import './ItemsInCart.css';
 
-const Card = ({ id, image, category, name, price, size }) => {
+const ItemsInCart = ({ id, image, category, name, price, size, quantity }) => {
     const sizeText = Array.isArray(size) ? size.join(', ') : size;
-
-    const handleAddToCart = () => {
-        setCartItems({ id, image, category, name, price, size });
-    };
 
     return (
         <Link to={`/product/${id}`} className="card-link">
             <div className="card">
-                <img src={image} alt={name} className="card-img" />
                 <div className="card-content">
-                    <p className="card-category">{category}</p>
+                    <img src={image[0]} alt={name} className="card-image" />
                     <p className="card-title">{name}</p>
                     <p className="card-price">{price}</p>
                     {size && <p className="card-size">Size: {sizeText}</p>}
-                    <button onClick={handleAddToCart}>
-                        Add to Cart
-                    </button>
+                    {category && <p className="card-category">Color: {category}</p>}
+                    <p className="card-quantity">Quantity: {quantity > 1 ? quantity : 1}</p>
                 </div>
             </div>
         </Link>
     );
 };
 
-Card.propTypes = {
+ItemsInCart.propTypes = {
     id: PropTypes.number.isRequired,
     image: PropTypes.string.isRequired,
     category: PropTypes.string.isRequired,
@@ -39,6 +32,7 @@ Card.propTypes = {
         PropTypes.string,
         PropTypes.arrayOf(PropTypes.string)
     ]),
+    quantity: PropTypes.number.isRequired, 
 };
 
-export default Card;
+export default ItemsInCart;

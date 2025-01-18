@@ -1,4 +1,4 @@
-export { Cart } from "./Cart";
+export { Cart } from "./Cart/Cart";
 export { Home } from "./Home/Home";
 export { PageNotFound } from "./PageNotFound";
 export { ULogin } from "./User/UserLogin.jsx";
