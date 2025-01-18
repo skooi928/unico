@@ -32,6 +32,10 @@ export const Product = () => {
     accessories: Accessories,
   };
 
+  const handleScroll = () => {
+    setScrollPosition(window.scrollY); // Update scroll position directly
+  };
+
   const handleWheel = (event) => {
     if (event.deltaY > 0 && window.scrollY <= 90) {
       setHasScrolled(true);
@@ -45,9 +49,11 @@ export const Product = () => {
   };
 
   useEffect(() => {
+    window.addEventListener("scroll", handleScroll); // Add scroll listener
     window.addEventListener("wheel", handleWheel); // Add wheel listener
     return () => {
-      window.removeEventListener("wheel", handleWheel); // Cleanup listener
+      window.removeEventListener("scroll", handleScroll); // Cleanup scroll listener
+      window.removeEventListener("wheel", handleWheel); // Cleanup wheel listener
     };
   }, [hasScrolled]);
 
