@@ -1,3 +1,5 @@
+@import url("../assets/styles/global.css");
+
 .search-bar-container {
     display: flex;
     align-items: center;
@@ -40,7 +42,7 @@
 }
 
 .search-input:hover {
-    border-color: #007bff;
+    border-color: var(--button-color);
 }
 
 .clear-button {
