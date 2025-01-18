@@ -2,10 +2,32 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import './ProductDetails.css';
 import Header from '../Header';
+import { setCartItems } from "../../pages/Cart/Cart";
+import { useCart } from "../../pages/Cart/CartContext";
+
+const handleAddToCart = () => {
+    if (selectedSize && selectedColor) {
+      const cartItem = {
+        id: product.id,
+        name: product.name,
+        image: product.image[0], // Use the first image as the thumbnail
+        price: product.price,
+        size: selectedSize,
+        color: selectedColor,
+        category: product.category,
+      };
+      setCartItems(cartItem);
+      alert(`${product.name} has been added to the cart.`);
+    } else {
+      alert("Please select a size and color before adding to the cart.");
+    }
+  };
+  
 
 const ProductDetails = () => {
     const { id } = useParams();
     const [product, setProduct] = useState(null);
+    const { addToCart } = useCart(); 
 
     // State for selected size and color
     const [selectedSize, setSelectedSize] = useState(null);
@@ -41,6 +63,22 @@ const ProductDetails = () => {
     const prevImage = () => {
         setCurrentImageIndex((prevIndex) => (prevIndex - 1 + (product.image?.length || 1)) % (product.image?.length || 1));
     };
+
+    const handleAddToCart = () => {
+        if (selectedSize && selectedColor) {
+          addToCart({
+            id: product.id,
+            name: product.name,
+            image: product.image,
+            size: selectedSize,
+            color: selectedColor,
+            price: product.price,
+          });
+          alert("Item added to cart!");
+        } else {
+          alert("Please select size and color!");
+        }
+      };
 
     return (
         <div className="product-details">
@@ -115,6 +153,7 @@ const ProductDetails = () => {
                     <button
                         className="add-to-cart-btn"
                         disabled={!selectedSize || !selectedColor} // Disable "Add to Cart" button until both size and color are selected
+                        onClick={handleAddToCart}
                     >
                         ADD TO CART
                     </button>

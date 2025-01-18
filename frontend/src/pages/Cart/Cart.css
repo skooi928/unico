@@ -1,4 +1,4 @@
-@import url('../assets/styles/global.css');
+@import url('../../assets/styles/global.css');
 
 .cart-page .icon {
     filter: invert(0);
@@ -25,7 +25,7 @@
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
-    margin-bottom: 50px;
+    margin-bottom: 80px;
     
   }
   
@@ -34,7 +34,6 @@
   }
   
   .cart-items {
-
     display: flex;
     flex-wrap: wrap;
     grid-template-columns: repeat(auto-fit, minmax(800px, 1fr));
@@ -68,4 +67,24 @@
     color: #fff;
     border-radius: 4px;
     font-size: 0.9rem;
+  }
+
+  .empty-cart {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 35vh;
+    padding-top: 20vh;
+  }
+  
+  .empty-cart p {
+    font-size: 24px; /* Bigger font size */
+    font-weight: bold; /* Bold font */
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
   }
