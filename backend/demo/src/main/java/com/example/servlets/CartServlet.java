@@ -38,7 +38,8 @@ public class CartServlet extends HttpServlet {
             return new ArrayList<>();
         }
         try (Reader reader = new FileReader(file)) {
-            List<Cart> cartItems = gson.fromJson(reader, new TypeToken<List<Cart>>() {}.getType());
+            List<Cart> cartItems = gson.fromJson(reader, new TypeToken<List<Cart>>() {
+            }.getType());
             return cartItems != null ? cartItems : new ArrayList<>();
         }
     }
@@ -50,7 +51,7 @@ public class CartServlet extends HttpServlet {
         }
     }
 
-    // GET to retrieve all cart items
+    // GET to retrieve all cart items for a specific user
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -58,8 +59,16 @@ public class CartServlet extends HttpServlet {
         String realPath = getServletContext().getRealPath("/WEB-INF/data/cart.json");
         List<Cart> cartItems = loadCartItems(realPath);
 
+        String userEmail = request.getParameter("userEmail");
+        List<Cart> userCartItems = new ArrayList<>();
+        for (Cart item : cartItems) {
+            if (item.getUserEmail().equals(userEmail)) {
+                userCartItems.add(item);
+            }
+        }
+
         response.setContentType("application/json");
-        response.getWriter().write(gson.toJson(cartItems));
+        response.getWriter().write(gson.toJson(userCartItems));
     }
 
     // POST to add a new cart item
@@ -83,8 +92,9 @@ public class CartServlet extends HttpServlet {
         boolean found = false;
         for (Cart item : cartItems) {
             if (item.getId() == newItem.getId() &&
-                item.getSize().equals(newItem.getSize()) &&
-                item.getColor().equals(newItem.getColor())) {
+                    item.getSize().equals(newItem.getSize()) &&
+                    item.getColor().equals(newItem.getColor()) &&
+                    item.getUserEmail().equals(newItem.getUserEmail())) { // Check userEmail
                 item.setQuantity(item.getQuantity() + 1);
                 found = true;
                 break;
@@ -116,8 +126,9 @@ public class CartServlet extends HttpServlet {
 
         // remove item from cart
         cartItems.removeIf(item -> item.getId() == itemToRemove.getId() &&
-                                    item.getSize().equals(itemToRemove.getSize()) &&
-                                    item.getColor().equals(itemToRemove.getColor()));
+                item.getSize().equals(itemToRemove.getSize()) &&
+                item.getColor().equals(itemToRemove.getColor()) &&
+                item.getUserEmail().equals(itemToRemove.getUserEmail())); // Check userEmail
 
         // save to cart.json
         saveCartItems(realPath, cartItems);

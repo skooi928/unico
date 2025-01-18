@@ -3,23 +3,33 @@ import { useNavigate } from "react-router-dom";
 import { useCart } from "./CartContext";
 import ItemsInCart from "./ItemsInCart";
 import Header from "../../components/Header";
+import { getCookie } from "../../utils/cookies"; // Import getCookie function
 import "./Cart.css";
 
 export const Cart = () => {
   const navigate = useNavigate();
-  const { cartItems, addToCart } = useCart();
-  const [items, setItems] = useState(cartItems || []);
+  const { cartItems, setCartItems } = useCart(); // Use useCart to manage cartItems
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const userEmail = getCookie("email"); // Get userEmail from cookies
 
   useEffect(() => {
-    setItems(cartItems || []);
-  }, [cartItems]);
+    if (userEmail) {
+      fetch(`http://localhost:8080/api/cart?userEmail=${userEmail}`)
+        .then((response) => response.json())
+        .then((data) => setCartItems(data)) // Use setCartItems to set cart items
+        .catch((error) => console.error("Error fetching cart items:", error));
+    }
+  }, [userEmail, setCartItems]);
 
   useEffect(() => {
     // Check if the user is logged in by verifying the presence of a token or cookies
     const token = localStorage.getItem("token");
-    const email = document.cookie.split("; ").find(row => row.startsWith("email="));
-    const password = document.cookie.split("; ").find(row => row.startsWith("password="));
+    const email = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("email="));
+    const password = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("password="));
     if (token || (email && password)) {
       setIsLoggedIn(true);
     }
@@ -32,13 +42,14 @@ export const Cart = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ id, size, color }),
+        body: JSON.stringify({ id, size, color, userEmail }), // Include userEmail
       });
 
       if (response.ok) {
-        setItems((prevItems) =>
+        setCartItems((prevItems) =>
           prevItems.filter(
-            (item) => !(item.id === id && item.size === size && item.color === color)
+            (item) =>
+              !(item.id === id && item.size === size && item.color === color)
           )
         );
       } else {
@@ -63,7 +74,7 @@ export const Cart = () => {
               Login Here
             </button>
           </div>
-        ) : items.length === 0 ? (
+        ) : cartItems.length === 0 ? (
           <div className="empty-cart">
             <p>Your cart is empty. Add your items here!</p>
             <button
@@ -76,14 +87,18 @@ export const Cart = () => {
         ) : (
           <>
             <div className="card-container">
-              {items.map((item, index) => (
+              {cartItems.map((item, index) => (
                 <ItemsInCart
                   key={`${item.id}-${index}`} // Ensure unique keys
                   id={item.id}
                   image={item.image} // Pass the image property
                   name={item.name}
                   price={`RM${item.price}`}
-                  size={Array.isArray(item.size) ? item.size.join(", ") : item.size || "N/A"}
+                  size={
+                    Array.isArray(item.size)
+                      ? item.size.join(", ")
+                      : item.size || "N/A"
+                  }
                   color={item.color} // Pass the color property
                   quantity={item.quantity}
                   onRemove={removeFromCart} // Pass the remove function
@@ -99,7 +114,7 @@ export const Cart = () => {
               </button>
               <button
                 className="proceed-payment-btn"
-                onClick={() => navigate("/payment", { state: { items } })}
+                onClick={() => navigate("/payment", { state: { cartItems } })}
               >
                 Proceed to Payment
               </button>

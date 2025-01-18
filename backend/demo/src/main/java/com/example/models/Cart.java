@@ -8,6 +8,7 @@ public class Cart {
     private String size;
     private int quantity;
     private String image; // Add image property
+    private String userEmail;
 
     public Cart() {
     }
@@ -76,5 +77,13 @@ public class Cart {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 }
