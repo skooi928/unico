@@ -1,3 +1,5 @@
+@import url("../../assets/styles/global.css");
+
 .product-details .header-nav-link {
     color: #000;
 }
@@ -14,7 +16,7 @@
     display: flex;
     justify-content: center;
     padding: 20px;
-    background-color: antiquewhite;
+    background-color: var(--tertiary-color);
 }
 
 .product-details-container {
@@ -85,7 +87,7 @@
 
 .add-to-cart-btn {
     padding: 12px 20px;
-    background-color: dodgerblue;
+    background-color: var(--button-color);
     color: white;
     font-size: 1.2em;
     border: none;
@@ -95,7 +97,7 @@
 }
 
 .add-to-cart-btn:hover {
-    background-color: #27ae60;
+    background-color: var(--button-colorHover);
 }
 
 .add-to-cart-btn:disabled {
@@ -122,9 +124,9 @@
 }
 
 .size-btn.selected {
-    background-color: #007bff;
+    background-color: var(--button-color);
     color: white;
-    border-color: #007bff;
+    border-color: var(--button-color);
 }
 
 .image-nav-btn {
