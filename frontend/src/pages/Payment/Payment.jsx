@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./Payment.css";
 
 export const Payment = () => {
@@ -10,6 +10,14 @@ export const Payment = () => {
   const [expirationDate, setExpirationDate] = useState("");
   const [cvv, setCvv] = useState("");
   const [nameOnCard, setNameOnCard] = useState("");
+  const navigate = useNavigate();
+
+  // Add items validation
+  useEffect(() => {
+    if (!location.state?.items) {
+      navigate("/cart");
+    }
+  }, []);
 
   useEffect(() => {
     // Disable body scrolling when the component mounts
