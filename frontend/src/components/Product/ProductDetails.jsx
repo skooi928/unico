@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import './ProductDetails.css';
 import Header from '../Header';
 
-const ProductDetails = () => {
+export const ProductDetails = () => {
     const { id } = useParams();
     const [product, setProduct] = useState(null);
 

@@ -6,3 +6,5 @@ export { URegis } from "./User/UserRegister.jsx";
 export { UProfile } from "./User/UserProfile.jsx";
 export { Product } from "./Product";
 export { VerifyEmail } from "./User/VerifyEmail.jsx";
+export { About } from "./About.jsx";
+export { ProductDetails } from "../components/Product/ProductDetails.jsx";
