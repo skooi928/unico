@@ -70,6 +70,12 @@
     background-color: #ddd;
 }
 
+/* Active link styling */
+.active-link {
+    background-color: #4caf50; /* Green background for active link */
+    color: white; /* White text for active link */
+}
+
 /* Arrow icon styling */
 .arrow1 {
     font-size: 0.8rem; /* Set the desired size for the arrow */

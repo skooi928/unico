@@ -18,15 +18,15 @@ body, html {
     background-color: #f9f9f9;
 }
 
-/* Style the MenImage to cover the screen */
-.menImage {
-    display: flex;
-    top: 0;
-    left: 0;
+.categoryImage {
     width: 100%;
-    height: 100vh;
-    object-position: center center; /* Centers the image */
+    height: auto;
+    max-height: 700px; /* Adjust this value as needed */
+    object-fit: cover; /* Ensure the image covers the container */
+    display: block;
+    margin: 0 auto;
 }
+
 
 .product-container {
     display: flex;

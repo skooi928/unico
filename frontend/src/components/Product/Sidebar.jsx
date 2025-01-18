@@ -32,10 +32,18 @@ const Sidebar = ({ onPriceSelect }) => {
                     </div>
                     {expanded.gender && (
                         <ul className="sidebar-submenu">
-                            <li className="sidebar-subitem"><NavLink to="/product">All</NavLink></li>
-                            <li className="sidebar-subitem"><NavLink to="/product#Men">Men</NavLink></li>
-                            <li className="sidebar-subitem"><NavLink to="/product#Women">Women</NavLink></li>
-                            <li className="sidebar-subitem"><NavLink to="/product#Kids">Kids</NavLink></li>
+                            <li className="sidebar-subitem">
+                                <NavLink to="/product#All" activeClassName="active-link">All</NavLink>
+                            </li>
+                            <li className="sidebar-subitem">
+                                <NavLink to="/product#Men" activeClassName="active-link">Men</NavLink>
+                            </li>
+                            <li className="sidebar-subitem">
+                                <NavLink to="/product#Women" activeClassName="active-link">Women</NavLink>
+                            </li>
+                            <li className="sidebar-subitem">
+                                <NavLink to="/product#Kids" activeClassName="active-link">Kids</NavLink>
+                            </li>
                         </ul>
                     )}
                 </li>
@@ -58,11 +66,21 @@ const Sidebar = ({ onPriceSelect }) => {
                     </div>
                     {expanded.price && (
                         <ul className="sidebar-submenu">
-                            <li className="sidebar-subitem"><a href="#" onClick={() => onPriceSelect(0, Infinity)}>All</a></li>
-                            <li className="sidebar-subitem"><a href="#" onClick={() => onPriceSelect(0, 49.99)}>RM 0 - RM 49.99</a></li>
-                            <li className="sidebar-subitem"><a href="#" onClick={() => onPriceSelect(50, 99.99)}>RM 50 - RM 99.99</a></li>
-                            <li className="sidebar-subitem"><a href="#" onClick={() => onPriceSelect(100, 149.99)}>RM 100 - RM 149.99</a></li>
-                            <li className="sidebar-subitem"><a href="#" onClick={() => onPriceSelect(150, Infinity)}>RM 150 and above</a></li>
+                            <li className="sidebar-subitem">
+                                <a href="#" onClick={() => onPriceSelect(0, Infinity)} className="price-link">All</a>
+                            </li>
+                            <li className="sidebar-subitem">
+                                <a href="#" onClick={() => onPriceSelect(0, 49.99)} className="price-link">RM 0 - RM 49.99</a>
+                            </li>
+                            <li className="sidebar-subitem">
+                                <a href="#" onClick={() => onPriceSelect(50, 99.99)} className="price-link">RM 50 - RM 99.99</a>
+                            </li>
+                            <li className="sidebar-subitem">
+                                <a href="#" onClick={() => onPriceSelect(100, 149.99)} className="price-link">RM 100 - RM 149.99</a>
+                            </li>
+                            <li className="sidebar-subitem">
+                                <a href="#" onClick={() => onPriceSelect(150, Infinity)} className="price-link">RM 150 and above</a>
+                            </li>
                         </ul>
                     )}
                 </li>
