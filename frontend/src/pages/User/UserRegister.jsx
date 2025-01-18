@@ -14,8 +14,19 @@ export const URegis = () => {
     setShowPassword(!showPassword);
   };
 
+  const validateEmail = (email) => {
+    const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    return regex.test(email);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!validateEmail(email)) {
+      setError("Please enter a valid email address");
+      return;
+    }
+
     try {
       const response = await fetch("http://localhost:8080/api/user", {
         method: "POST",

@@ -15,10 +15,20 @@ export const ULogin = () => {
     setShowPassword(!showPassword);
   };
 
+  const validateEmail = (email) => {
+    const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    return regex.test(email);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     setLoading(true); // show spinner
+
+    if (!validateEmail(email)) {
+      setError("Please enter a valid email address");
+      return;
+    }
 
     try {
       const response = await fetch("http://localhost:8080/api/user", {
@@ -55,7 +65,7 @@ export const ULogin = () => {
         <div className="login-form">
           <h2>LOGIN</h2>
           <p>Log in with your email address and password.</p>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="email">EMAIL ADDRESS *</label>
               <input
@@ -92,9 +102,7 @@ export const ULogin = () => {
                   Show my password
                 </label>
               </div>
-              <p className="error-feedback">
-                {error && <span>{error}</span>}
-              </p>
+              <p className="error-feedback">{error && <span>{error}</span>}</p>
             </div>
             <div className="form-links">
               <a href="/terms">TERMS OF USE</a> |{" "}
