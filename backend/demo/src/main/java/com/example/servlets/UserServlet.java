@@ -34,7 +34,6 @@ public class UserServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
         setCorsHeaders(response);
-        System.out.println("UserServlet POST");
 
         // 1) Read JSON body from request
         StringBuilder sb = new StringBuilder();

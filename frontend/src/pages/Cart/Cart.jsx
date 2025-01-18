@@ -55,12 +55,12 @@ export const Cart = () => {
       <div className="cart-content">
         {!isLoggedIn ? (
           <div className="empty-cart">
-            <p>Please login to an account first</p>
+            <p>Please login to an account first!</p>
             <button
               className="continue-shopping-btn"
               onClick={() => navigate("/login")}
             >
-              Login
+              Login Here
             </button>
           </div>
         ) : items.length === 0 ? (

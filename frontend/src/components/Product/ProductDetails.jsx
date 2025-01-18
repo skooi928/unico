@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import './ProductDetails.css';
 import Header from '../Header';
 import { useCart } from "../../pages/Cart/CartContext";
+import PopUpMessage from '../PopUpMessage';
 
 const ProductDetails = () => {
     const { id } = useParams();
+    const navigate = useNavigate();
     const [product, setProduct] = useState(null);
     const { addToCart } = useCart(); 
 
@@ -16,6 +18,7 @@ const ProductDetails = () => {
     const [displayPrice, setDisplayPrice] = useState(null);
 
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const [showPopup, setShowPopup] = useState(false);
 
     useEffect(() => {
         fetch(`http://localhost:8080/api/products/${id}`)
@@ -76,11 +79,20 @@ const ProductDetails = () => {
             price: product.price,
             category: product.category,
           });
-          alert("Item added to cart!");
+          setShowPopup(true); // Show the popup message
         } else {
           alert("Please select size and color!");
         }
       };
+
+    const handleViewCart = () => {
+        setShowPopup(false);
+        navigate("/cart");
+    };
+
+    const handleAddItems = () => {
+        setShowPopup(false);
+    };
 
     return (
         <div className="product-details">
@@ -163,6 +175,13 @@ const ProductDetails = () => {
                     </button>
                 </div>
             </div>
+            {showPopup && (
+                <PopUpMessage
+                    onClose={() => setShowPopup(false)}
+                    onViewCart={handleViewCart}
+                    onAddItems={handleAddItems}
+                />
+            )}
         </div>
     );
 };
