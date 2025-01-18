@@ -20,8 +20,7 @@ body, html {
 
 .categoryImage {
     width: 100%;
-    height: auto;
-    max-height: 700px; /* Adjust this value as needed */
+    height: 100%;
     object-fit: cover; /* Ensure the image covers the container */
     display: block;
     margin: 0 auto;

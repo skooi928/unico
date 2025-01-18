@@ -66,11 +66,6 @@ export const Header = ({ onCategorySelect }) => {
       </nav>
 
       <div className="icon-container">
-        <NavLink to="/favorites">
-          <button className="icon-button">
-            <img src={heartIcon} alt="Favorites" className="icon" />
-          </button>
-        </NavLink>
         <NavLink to="/cart">
           <button className="icon-button">
             <img src={cartIcon} alt="Cart" className="icon" />
