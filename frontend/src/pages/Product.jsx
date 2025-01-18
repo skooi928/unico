@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import Header from '../components/Header';
 import Men from "../assets/Product/Men.jpg";
@@ -12,20 +12,30 @@ export const Product = () => {
     const [productsData, setProductsData] = useState([]);
     const [searchKeyword, setSearchKeyword] = useState("");
     const [selectedPriceRange, setSelectedPriceRange] = useState([0, Infinity]);
+    const [hasScrolled, setHasScrolled] = useState(false);
 
     const location = useLocation();
     const selectedCategory = location.hash.replace('#', '') || "";
 
-    const handleScroll = () => {
+    const searchRef = useRef(null);
+
+    const handleWheel = (event) => {
+        if (event.deltaY > 0 && window.scrollY === 0 && searchRef.current) {
+            window.scrollTo({
+                top: searchRef.current.offsetTop - 90,
+                behavior: 'smooth'
+            });
+            setHasScrolled(true);
+        }
         setScrollPosition(window.scrollY); // Update scroll position
     };
 
     useEffect(() => {
-        window.addEventListener("scroll", handleScroll); // Add scroll listener
+        window.addEventListener("wheel", handleWheel); // Add wheel listener
         return () => {
-            window.removeEventListener("scroll", handleScroll); // Cleanup listener
+            window.removeEventListener("wheel", handleWheel); // Cleanup listener
         };
-    }, []);
+    }, [hasScrolled]);
 
     useEffect(() => {
         fetch('http://localhost:8080/api/products') // Update the port here
@@ -71,7 +81,9 @@ export const Product = () => {
                     transform: `scale(${Math.max(1 - scrollPosition / 1000, 0.8)})`, // Shrink effect
                 }}
             />
-            <Search onSearch={handleSearch} />
+            <div ref={searchRef}>
+                <Search onSearch={handleSearch} />
+            </div>
 
             <div className="product-container">
                 <Sidebar onPriceSelect={handlePriceSelection} />
