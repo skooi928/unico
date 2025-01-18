@@ -12,6 +12,10 @@
     background-color: #f9f9f9;
 }
 
+.user-profile .hamburger-menu span{
+    background-color: #000;
+}
+
 .profile-container {
     max-width: 700px;
     height: 100vh;
@@ -97,8 +101,23 @@
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s;
+    font-weight: bold;
 }
 
 .logout-button:hover {
     background-color: #c82333;
+}
+
+@media (max-width: 768px) {
+    .user-profile .mobile-only .icon-button {
+        filter: invert(1);
+    }
+
+    .profile-container {
+        width: 90%;
+    }
+
+    .profile-details {
+        width: 80%;
+    }
 }

@@ -85,7 +85,7 @@
     .card {
         width: 100%; /* Cards take full width on small screens */
         max-width: 350px; /* Maximum width for larger cards */
-        height: 320px; /* Adjust height for small screens */
+        height: fit-content; /* Adjust height for small screens */
     }
 }
 
@@ -93,6 +93,6 @@
     .card {
         width: 100%; /* Cards take full width on very small screens */
         max-width: 300px; /* Adjust for mobile */
-        height: 290px; /* Adjust height for mobile screens */
+        height: fit-content; /* Adjust height for mobile screens */
     }
 }

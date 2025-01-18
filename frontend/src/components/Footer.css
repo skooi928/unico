@@ -124,3 +124,9 @@
   .footer-nav-link:hover {
     color: var(--color-text-secondaryHover); 
   }
+
+  @media (max-width: 768px) {
+    .copyright {
+      padding: 20px;
+    }
+  }

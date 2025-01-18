@@ -12,6 +12,10 @@
     background-color: #f9f9f9;
 }
 
+.product-details .hamburger-menu span{
+    background-color: #000;
+}
+
 .product-details {
     display: flex;
     justify-content: center;
@@ -206,20 +210,6 @@
     text-align: center;
   }
 
-@media (max-width: 768px) {
-    .product-details-container {
-        flex-direction: column;
-        width: 90%; /* Adjust container width for smaller screens */
-    }
-
-    .product-image {
-        max-width: 100%; /* Images take full width */
-    }
-
-    .product-info {
-        max-width: 100%; /* Info adjusts to full width */
-    }
-}
 .color-selection {
     margin-bottom: 20px;
 
@@ -261,15 +251,34 @@ p{
 }
 
 @media (max-width: 768px) {
+    .product-details-container {
+        flex-direction: column;
+        width: 100%; /* Adjust container width for smaller screens */
+    }
+
+    .product-details .mobile-only .icon-button {
+        filter: invert(1);
+    }
+
     .product-image {
-        max-width: 90%; /* Adjust width for smaller screens */
-        max-height: 50vh; /* Reduce height for smaller screens */
+        max-width: 100%; /* Images take full width */
+        text-align: center;
+    }
+
+    .product-info {
+        padding: 20px;
+        padding-top: 0;
+        max-width: 100%; /* Info adjusts to full width */
     }
 
     .product-image img {
         max-height: 100%;
         object-fit: contain; /* Ensures proper scaling */
     }
+
+    .image-dots {
+        position: static;
+        transform: translateX(0%);
+        justify-content: center;
+    }
 }
-
-

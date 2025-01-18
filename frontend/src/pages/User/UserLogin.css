@@ -12,6 +12,10 @@
     background-color: #f9f9f9;
 }
 
+.login-page .hamburger-menu span{
+  background-color: #000;
+}
+
 .login-page {
     font-family: Arial, sans-serif;
     display: flex;
@@ -157,3 +161,29 @@
     color: #666;
     text-align: center;
   }
+
+  @media (max-width: 768px) {
+    .login-page .mobile-only .icon-button {
+        filter: invert(1);
+    }
+
+    .login-container {
+      width: 70%;
+      max-width: 768px;
+      flex-direction: column;
+    }
+
+    .login-form {
+      width: 100%;
+    }
+
+    .create-account {
+      width: 100% !important;
+    }
+
+    input[type="email"],
+    input[type="text"],
+    input[type="password"] {
+      width: 90% !important;
+    }
+}

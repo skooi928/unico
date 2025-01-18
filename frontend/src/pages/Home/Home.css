@@ -128,3 +128,30 @@
       transform: translateX(-55%) scale(1.05);
     }
   }
+
+  @media (max-width: 768px) {
+    .carousel-container {
+      touch-action: pan-y pinch-zoom;
+    }
+  
+    .carousel-indicators {
+      right: 5%;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  
+    .indicator {
+      width: 8px;
+      height: 8px;
+    }
+
+    .explore-now-button {
+      bottom: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: fit-content;
+      height: fit-content;
+      padding: 10px 20px;
+      font-size: 1rem;
+    }
+  }

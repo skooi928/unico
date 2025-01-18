@@ -8,20 +8,53 @@ export const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [showButton, setShowButton] = useState(false); // State to control button visibility
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const navigate = useNavigate();
 
+  // Check if device is mobile
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const displayImages = isMobile ? carouselImages.slice(1) : carouselImages;
+
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % carouselImages.length);
+    setCurrentSlide((prev) => (prev + 1) % displayImages.length);
   };
 
   const prevSlide = () => {
     setCurrentSlide((prev) =>
-      prev === 0 ? carouselImages.length - 1 : prev - 1
+      prev === 0 ? displayImages.length - 1 : prev - 1
     );
   };
 
+  // Auto scroll for mobile
+  useEffect(() => {
+    let autoScrollTimer;
+
+    if (isMobile && !isTransitioning) {
+      autoScrollTimer = setInterval(() => {
+        nextSlide();
+        setIsTransitioning(true);
+      }, 3000); // Change slide every 3 seconds
+    }
+
+    return () => {
+      if (autoScrollTimer) {
+        clearInterval(autoScrollTimer);
+      }
+    };
+  }, [currentSlide, isTransitioning, isMobile]);
+
   useEffect(() => {
     const handleWheel = (e) => {
+      if (isMobile) return; // Disable wheel scrolling on mobile
+
       e.preventDefault();
       if (isTransitioning) return; // Don’t scroll if we’re animating
 
@@ -36,7 +69,7 @@ export const Home = () => {
 
     window.addEventListener("wheel", handleWheel, { passive: false });
     return () => window.removeEventListener("wheel", handleWheel);
-  }, [isTransitioning]);
+  }, [isTransitioning, isMobile]);
 
   // When the slide finishes its CSS transition, let scrolling resume and show button if on last slide
   const handleTransitionEnd = () => {
@@ -46,10 +79,38 @@ export const Home = () => {
     }
   };
 
+  // Add touch handlers for mobile
+  const handleTouchStart = (e) => {
+    if (!isMobile) return;
+    const touch = e.touches[0];
+    setTouchStart(touch.clientY);
+  };
+
+  const handleTouchMove = (e) => {
+    if (!isMobile || isTransitioning) return;
+    const touch = e.touches[0];
+    const diff = touchStart - touch.clientY;
+
+    if (Math.abs(diff) > 50) {
+      // Minimum swipe distance
+      if (diff > 0) {
+        nextSlide();
+      } else {
+        prevSlide();
+      }
+      setIsTransitioning(true);
+      setShowButton(false);
+    }
+  };
+
   return (
     <div className="home-container">
       <Header />
-      <div className="carousel-container">
+      <div
+        className="carousel-container"
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+      >
         <div
           className="slides-wrapper"
           style={{
@@ -58,14 +119,14 @@ export const Home = () => {
           }}
           onTransitionEnd={handleTransitionEnd}
         >
-          {carouselImages.map((image, index) => (
+          {displayImages.map((image, index) => (
             <div className="slide" key={index}>
               <img
                 src={image.imgUrl}
                 alt={`Slide ${index + 1}`}
                 className="carousel-image"
               />
-              {currentSlide === 5 && showButton && (
+              {currentSlide === (isMobile ? 4 : 5) && showButton && (
                 <button
                   className="explore-now-button"
                   onClick={() => navigate("/product")}
@@ -81,7 +142,7 @@ export const Home = () => {
         </div>
       </div>
       <div className="carousel-indicators">
-        {carouselImages.map((_, idx) => (
+        {displayImages.map((_, idx) => (
           <div
             key={idx}
             className={`indicator ${idx === currentSlide ? "active" : ""}`}

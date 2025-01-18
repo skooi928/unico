@@ -17,6 +17,10 @@
     background-color: #f9f9f9;
 }
 
+.header-wrapper .hamburger-menu span{
+    background-color: #000;
+}
+
 .background-container {
     position: fixed;
     top: 0;
@@ -71,4 +75,10 @@
     width: 200px;
     height: 200px;
     margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+    .header-wrapper .mobile-only .icon-button {
+        filter: invert(1);
+    }
 }
