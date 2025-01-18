@@ -1,7 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
-import Header from '../components/Header';
+import Header from "../components/Header";
+import All from "../assets/Product/All.jpg";
 import Men from "../assets/Product/Men.jpg";
+import Women from "../assets/Product/Women.jpg";
+import Kids from "../assets/Product/Kids.jpg";
+import Accessories from "../assets/Product/Accessories.jpg";
 import Search from "./Search";
 import Sidebar from "../components/Product/Sidebar";
 import Card from '../components/Product/Card';
@@ -13,11 +17,18 @@ export const Product = () => {
     const [searchKeyword, setSearchKeyword] = useState("");
     const [selectedPriceRange, setSelectedPriceRange] = useState([0, Infinity]);
     const [hasScrolled, setHasScrolled] = useState(false);
+    const [selectedCategory, setSelectedCategory] = useState("All");
 
     const location = useLocation();
-    const selectedCategory = location.hash.replace('#', '') || "";
-
     const searchRef = useRef(null);
+
+    const categoryImages = {
+        all: All,
+        men: Men,
+        women: Women,
+        kids: Kids,
+        accessories: Accessories,
+    };
 
     const handleWheel = (event) => {
         if (event.deltaY > 0 && window.scrollY === 0 && searchRef.current) {
@@ -26,8 +37,9 @@ export const Product = () => {
                 behavior: 'smooth'
             });
             setHasScrolled(true);
+        } else {
+            setScrollPosition(window.scrollY); // Update scroll position
         }
-        setScrollPosition(window.scrollY); // Update scroll position
     };
 
     useEffect(() => {
@@ -52,6 +64,11 @@ export const Product = () => {
             .catch(error => console.error('Error fetching products:', error));
     }, []);
 
+    useEffect(() => {
+        const currentCategory = location.hash.replace('#', '') || "All";
+        setSelectedCategory(currentCategory);
+    }, [location]);
+
     const handleSearch = (keyword) => {
         setSearchKeyword(keyword);
     };
@@ -60,22 +77,26 @@ export const Product = () => {
         setSelectedPriceRange([min, max]);
     };
 
+    const handleCategorySelection = (category) => {
+        setSelectedCategory(category);
+    };
+
     const filteredProducts = productsData.filter(product =>
         (product.name.toLowerCase().includes(searchKeyword.toLowerCase()) ||
         product.description.toLowerCase().includes(searchKeyword.toLowerCase()) ||
         product.category.toLowerCase().includes(searchKeyword.toLowerCase()) ||
         product.type.toLowerCase().includes(searchKeyword.toLowerCase())) &&
-        (selectedCategory === "" || product.category.toLowerCase() === selectedCategory.toLowerCase()) &&
+        (selectedCategory === "All" || product.category.toLowerCase() === selectedCategory.toLowerCase()) &&
         (product.price[0] >= selectedPriceRange[0] && product.price[0] <= selectedPriceRange[1])
     );
 
     return (
         <div className="product-page">
-            <Header/>
+            <Header onCategorySelect={handleCategorySelection} />
             <img
-                className="menImage"
-                src={Men}
-                alt="Men's Clothing"
+                className="categoryImage"
+                src={categoryImages[selectedCategory.toLowerCase()]}
+                alt={`${selectedCategory} Clothing`}
                 style={{
                     opacity: Math.max(1 - scrollPosition / 300, 0), // Fade effect
                     transform: `scale(${Math.max(1 - scrollPosition / 1000, 0.8)})`, // Shrink effect

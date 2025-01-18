@@ -1,14 +1,13 @@
-import React from "react";
-import { useLocation } from 'react-router-dom';
-import "./Header.css";
+import React from 'react';
+import { useLocation, NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import './Header.css';
 import logo from "../assets/logo.svg";
 import heartIcon from "/Icon/heart.webp"; 
 import cartIcon from "/Icon/shopping-cart.webp";
 import userIcon from "/Icon/user.webp";
-import { NavLink } from "react-router-dom";
 
-export const Header = () => {
-
+export const Header = ({ onCategorySelect }) => {
   const location = useLocation();
   const currentActive = location.hash.replace('#', '') || "";
 
@@ -26,6 +25,7 @@ export const Header = () => {
             <NavLink
               to="/product#Men"
               className={ currentActive === "Men" ? "header-nav-link selected" : "header-nav-link"}
+              onClick={() => onCategorySelect('Men')}
             >
               Men
             </NavLink>
@@ -34,6 +34,7 @@ export const Header = () => {
             <NavLink
               to="/product#Women"
               className={ currentActive === "Women" ? "header-nav-link selected" : "header-nav-link"}
+              onClick={() => onCategorySelect('Women')}
             >
               Women
             </NavLink>
@@ -41,7 +42,8 @@ export const Header = () => {
           <li>
             <NavLink
               to="/product#Kids"
-              className={ currentActive == "Kids" ? "header-nav-link selected" : "header-nav-link"}
+              className={ currentActive === "Kids" ? "header-nav-link selected" : "header-nav-link"}
+              onClick={() => onCategorySelect('Kids')}
             >
               Kids
             </NavLink>
@@ -49,7 +51,8 @@ export const Header = () => {
           <li>
             <NavLink
               to="/product#Accessories"
-              className={ currentActive == "Accessories" ? "header-nav-link selected" : "header-nav-link"}
+              className={ currentActive === "Accessories" ? "header-nav-link selected" : "header-nav-link"}
+              onClick={() => onCategorySelect('Accessories')}
             >
               Accessories
             </NavLink>
@@ -76,6 +79,10 @@ export const Header = () => {
       </div>
     </header>
   );
+};
+
+Header.propTypes = {
+  onCategorySelect: PropTypes.func.isRequired,
 };
 
 export default Header;
