@@ -1,33 +1,111 @@
 body.no-scroll {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 .order-item-image {
   width: 100px;
   height: 100px;
-    object-fit: cover;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin: 5px;
+  margin-right: 10px;
 }
 
 .payment-container {
-    margin: 20px;
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden;
-  }
-  
-  .payment-button {
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    width: 20%;
-  }
-  
-  .payment-button:hover {
-    background-color: #45a049;
-  }
-  
+  margin: 20px;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.payment-container h2 {
+  font-size: 2.5rem;
+}
+
+.payment-container h3 {
+  font-size: 1.5rem;
+}
+
+.order-summary h3{
+  text-align: center;
+}
+
+.order-summary ul {
+  list-style-type: none;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 25px;
+  margin: 0;
+}
+
+.order-summary li {
+  display: flex;
+  flex: row;
+  margin-bottom: 10px;
+  vertical-align: center;
+}
+
+.order-item-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align text to the start of the column */
+}
+
+.order-item-details p {
+  margin: 5px;
+}
+
+.total-price h3{
+  font-size: 1.75rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.total-price p {
+  font-size: 1rem;
+  text-align: center; 
+  margin-bottom: 20px;
+}
+
+.payment-form {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  width: 23%;
+}
+
+.payment-button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 40px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+}
+
+.payment-button:hover {
+  background-color: #45a049;
+}
+
+.cancel-button {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 10px 40px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+}
+
+.cancel-button:hover {
+  background-color: #da190b;
+}

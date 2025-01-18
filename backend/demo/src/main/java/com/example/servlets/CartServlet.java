@@ -29,7 +29,7 @@ public class CartServlet extends HttpServlet {
     // Add CORS headers
     private void addCorsHeaders(HttpServletResponse response) {
         response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, OPTIONS");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, OPTIONS, PUT");
         response.setHeader("Access-Control-Allow-Headers", "Content-Type");
     }
 
@@ -206,6 +206,24 @@ public class CartServlet extends HttpServlet {
         saveCartItems(realPath, cartItems);
         response.setContentType("application/json");
         response.getWriter().write("{\"message\": \"Item removed from cart\"}");
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        addCorsHeaders(response);
+        String realPath = getServletContext().getRealPath("/WEB-INF/data/cart.json");
+        List<Cart> cartItems = loadCartItems(realPath);
+
+        BufferedReader reader = request.getReader();
+        String userEmail = gson.fromJson(reader, String.class);
+
+        // Remove all items for this user without restoring stock
+        cartItems.removeIf(item -> item.getUserEmail().equals(userEmail));
+
+        saveCartItems(realPath, cartItems);
+        response.setContentType("application/json");
+        response.getWriter().write("{\"message\": \"Cart cleared after payment\"}");
     }
 
     // Handle OPTIONS preflight request
