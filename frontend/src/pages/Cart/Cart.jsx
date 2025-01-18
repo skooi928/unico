@@ -108,7 +108,7 @@ export const Cart = () => {
             <div className="button-container">
               <button
                 className="continue-shopping-btn"
-                onClick={() => navigate(-1)}
+                onClick={() => navigate("/product")}
               >
                 Continue Shopping
               </button>

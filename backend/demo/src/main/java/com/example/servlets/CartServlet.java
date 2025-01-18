@@ -95,13 +95,12 @@ public class CartServlet extends HttpServlet {
                     item.getSize().equals(newItem.getSize()) &&
                     item.getColor().equals(newItem.getColor()) &&
                     item.getUserEmail().equals(newItem.getUserEmail())) { // Check userEmail
-                item.setQuantity(item.getQuantity() + 1);
+                item.setQuantity(item.getQuantity() + newItem.getQuantity()); // Update quantity
                 found = true;
                 break;
             }
         }
         if (!found) {
-            newItem.setQuantity(1);
             cartItems.add(newItem);
         }
 
