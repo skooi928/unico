@@ -33,14 +33,15 @@ export const Product = () => {
   };
 
   const handleWheel = (event) => {
-    if (event.deltaY > 0 && window.scrollY === 0 && searchRef.current) {
+    if (event.deltaY > 0 && window.scrollY <= 90) {
+      setHasScrolled(true);
       window.scrollTo({
         top: searchRef.current.offsetTop - 90,
         behavior: "smooth",
       });
-      setHasScrolled(true);
+    } else {
+      setScrollPosition(window.scrollY); // Update scroll position
     }
-    setScrollPosition(window.scrollY); // Update scroll position
   };
 
   useEffect(() => {
