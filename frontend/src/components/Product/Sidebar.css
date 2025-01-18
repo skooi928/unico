@@ -71,9 +71,10 @@
 }
 
 /* Active link styling */
-.active-link {
+.sidebar-subitem a.active-link {
     background-color: #4caf50; /* Green background for active link */
     color: white; /* White text for active link */
+    border-radius: 5px;
 }
 
 /* Arrow icon styling */
