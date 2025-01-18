@@ -5,7 +5,7 @@ import Header from '../Header';
 import { useCart } from "../../pages/Cart/CartContext";
 import PopUpMessage from '../PopUpMessage';
 
-const ProductDetails = () => {
+export const ProductDetails = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const [product, setProduct] = useState(null);

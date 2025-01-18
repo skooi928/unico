@@ -7,3 +7,5 @@ export { UProfile } from "./User/UserProfile.jsx";
 export { Product } from "./Product";
 export { Payment } from "./Payment/Payment.jsx";
 export { VerifyEmail } from "./User/VerifyEmail.jsx";
+export { About } from "./About.jsx";
+export { ProductDetails } from "../components/Product/ProductDetails.jsx";
