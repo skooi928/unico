@@ -39,7 +39,7 @@ export const Cart = () => {
                   name={item.name}
                   price={`RM${item.price}`}
                   size={Array.isArray(item.size) ? item.size.join(", ") : item.size || "N/A"}
-                  category={item.category} // Ensure category is passed
+                  color={item.color} // Pass the color property
                   quantity={item.quantity}
                 />
               ))}

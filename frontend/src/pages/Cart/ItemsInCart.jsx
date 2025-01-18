@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import './ItemsInCart.css';
 
-const ItemsInCart = ({ id, image, category, name, price, size, quantity }) => {
+const ItemsInCart = ({ id, image, color, name, price, size, quantity }) => {
     const sizeText = Array.isArray(size) ? size.join(', ') : size;
 
     return (
@@ -14,7 +14,12 @@ const ItemsInCart = ({ id, image, category, name, price, size, quantity }) => {
                     <p className="card-title">{name}</p>
                     <p className="card-price">{price}</p>
                     {size && <p className="card-size">Size: {sizeText}</p>}
-                    {category && <p className="card-category">Category: {category}</p>}
+                    {color && (
+                        <div className="card-color">
+                            <span>Color: </span>
+                            <div className="color-circle" style={{ backgroundColor: color }}></div>
+                        </div>
+                    )}
                     <p className="card-quantity">Quantity: {quantity > 1 ? quantity : 1}</p>
                 </div>
             </div>
@@ -25,7 +30,7 @@ const ItemsInCart = ({ id, image, category, name, price, size, quantity }) => {
 ItemsInCart.propTypes = {
     id: PropTypes.number.isRequired,
     image: PropTypes.string.isRequired,
-    category: PropTypes.string.isRequired,
+    color: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     price: PropTypes.string.isRequired,
     size: PropTypes.oneOfType([

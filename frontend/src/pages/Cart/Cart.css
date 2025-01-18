@@ -1,5 +1,9 @@
 @import url('../../assets/styles/global.css');
 
+.cart-page .header-nav-link {
+  color: #000;
+}
+
 .cart-page .icon {
     filter: invert(0);
 }

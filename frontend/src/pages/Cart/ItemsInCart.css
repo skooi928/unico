@@ -76,6 +76,23 @@
     border-radius: 4px; /* Rounded corners */
 }
 
+/* Card Color */
+.card-color {
+    display: flex;
+    align-items: center;
+    font-size: 1em;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.color-circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-left: 5px;
+    border: 1px solid #ccc; /* Optional: Add a border for better visibility */
+}
+
 /* Card Quantity */
 .card-quantity {
     font-size: 1em;
