@@ -11,6 +11,11 @@ export const Header = ({ onCategorySelect }) => {
   const location = useLocation();
   const currentActive = location.hash.replace('#', '') || "";
 
+  const handleCategorySelect = (category) => {
+    onCategorySelect(category);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <header className="header">
       <div className="logo-container">
@@ -25,7 +30,7 @@ export const Header = ({ onCategorySelect }) => {
             <NavLink
               to="/product#Men"
               className={ currentActive === "Men" ? "header-nav-link selected" : "header-nav-link"}
-              onClick={() => onCategorySelect('Men')}
+              onClick={() => handleCategorySelect('Men')}
             >
               Men
             </NavLink>
@@ -34,7 +39,7 @@ export const Header = ({ onCategorySelect }) => {
             <NavLink
               to="/product#Women"
               className={ currentActive === "Women" ? "header-nav-link selected" : "header-nav-link"}
-              onClick={() => onCategorySelect('Women')}
+              onClick={() => handleCategorySelect('Women')}
             >
               Women
             </NavLink>
@@ -43,7 +48,7 @@ export const Header = ({ onCategorySelect }) => {
             <NavLink
               to="/product#Kids"
               className={ currentActive === "Kids" ? "header-nav-link selected" : "header-nav-link"}
-              onClick={() => onCategorySelect('Kids')}
+              onClick={() => handleCategorySelect('Kids')}
             >
               Kids
             </NavLink>
@@ -52,7 +57,7 @@ export const Header = ({ onCategorySelect }) => {
             <NavLink
               to="/product#Accessories"
               className={ currentActive === "Accessories" ? "header-nav-link selected" : "header-nav-link"}
-              onClick={() => onCategorySelect('Accessories')}
+              onClick={() => handleCategorySelect('Accessories')}
             >
               Accessories
             </NavLink>
