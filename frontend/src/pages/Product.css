@@ -19,31 +19,37 @@ body, html {
 }
 
 /* Style the MenImage to cover the screen */
-.menImage{
-    display:flex;
+.menImage {
+    display: flex;
     top: 0;
     left: 0;
-    width:100vw;
-    height:100vh;
-    object-position: center center; /* Centers the image */}
+    width: 100vw;
+    height: 100vh;
+    object-position: center center; /* Centers the image */
+}
 
 .product-container {
     display: flex;
+    padding: 20px; /* Add padding to the container */
+    gap: 20px; /* Add gap between sidebar and card container */
 }
 
+.sidebar {
+    flex: 0 0 250px; /* Fixed width for the sidebar */
+}
 
 .card-container {
     display: flex; /* Use flexbox for side-by-side layout */
-    gap: 10px; /* Space between the cards */
+    gap: 15px; /* Space between the cards */
     padding: 20px; /* Optional padding for the container */
     flex-wrap: wrap; /* Ensure cards wrap to the next line if they don't fit */
+    flex: 1; /* Allow card container to take up remaining space */
 }
 
 .card-container > * {
     flex: 1 1 250px; /* Set the cards to have a minimum width of 250px and flexible sizing */
     max-width: 300px; /* Optional: Limit the maximum width of each card */
 }
-
 
 /* Style the heading */
 h1 {

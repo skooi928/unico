@@ -1,18 +1,20 @@
 /* Sidebar container styles */
 .sidebar {
-    width: 280px;
+    width: 250px; /* Fixed width for desktop screens */
+    max-width: 100%; /* Ensure it doesn't exceed screen width on smaller devices */
     background-color: #f2f2f2;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
+    flex-shrink: 0; /* Prevent the sidebar from shrinking in flex containers */
 }
-
 
 /* Sidebar menu styling */
 .sidebar-menu {
     list-style-type: none;
     padding: 0;
+    margin: 0; /* Ensure no extra margin is added */
 }
 
 /* Individual sidebar item styling */
@@ -30,6 +32,7 @@
     display: flex;
     justify-content: space-between; /* Align arrow to the right */
     align-items: center; /* Center items vertically */
+    overflow: hidden; /* Prevent content overflow */
 }
 
 /* Hover effect for expandable button */
@@ -43,6 +46,7 @@
     padding: 0;
     margin-top: 5px;
     border-left: 2px solid #4caf50; /* Green color for submenu indicator */
+    padding-left: 10px; /* Add space inside the submenu */
 }
 
 /* Submenu item styles */
@@ -56,6 +60,9 @@
     color: #333;
     padding: 5px 10px;
     display: block;
+    white-space: nowrap; /* Prevent text wrapping */
+    overflow: hidden; /* Hide overflow */
+    text-overflow: ellipsis; /* Add ellipsis for long text */
 }
 
 /* Hover effect for submenu items */
@@ -78,4 +85,12 @@
 /* Arrow rotation when collapsed */
 .arrow1.down {
     transform: rotate(0deg); /* Default down arrow */
+}
+
+/* Responsive behavior */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%; /* Full width for smaller screens */
+        margin-bottom: 10px;
+    }
 }

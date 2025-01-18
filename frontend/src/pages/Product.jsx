@@ -56,7 +56,7 @@ export const Product = () => {
         product.category.toLowerCase().includes(searchKeyword.toLowerCase()) ||
         product.type.toLowerCase().includes(searchKeyword.toLowerCase())) &&
         (selectedCategory === "" || product.category.toLowerCase() === selectedCategory.toLowerCase()) &&
-        (product.price >= selectedPriceRange[0] && product.price <= selectedPriceRange[1])
+        (product.price[0] >= selectedPriceRange[0] && product.price[0] <= selectedPriceRange[1])
     );
 
     return (
@@ -83,8 +83,8 @@ export const Product = () => {
                             image={product.image[0]} // Display the first image
                             category={product.category}
                             name={product.name}
-                            price={`RM${product.price}`}
-                            size={product.size ? product.size.join(", ") : "N/A"} // Add null check here
+                            price={product.price} // Pass the price array
+                            size={product.size} // Pass the size array directly
                         />
                     ))}
                 </div>

@@ -16,7 +16,7 @@
         "name": "Solid Bamboo Fibre T-Shirt",
         "description": "Made from bamboo fibers (a super sustainable raw material), our Solid Tees offer a luxuriously soft feel on the skin and unbeatable comfort. Highly breathable and anti-allergenic, this men's t-shirt is perfect for everyday wear and you'll look amazing either at home or on the go.\n\nMade with 93% Bamboo Lyocell and 7% Elastane\n\nThink of Bamboo Lyocell as an upgraded, eco-friendlier version of bamboo viscose (the generally cheaper and more abundant fabric). Bamboo Lyocell fabric is created by adopting a closed-loop process using a non-toxic solvent, amine oxide, which dissolves bamboo. With this process, 99% of the chemicals and water used are reclaimed and reused in the next stage of the production process, greatly reducing water consumption.",
         "price": [59.99],
-        "color": ["0000000","#87CEEB","#964B00"],
+        "color": ["#000","#87CEEB","#964B00"],
         "size": ["XS","S","M","L","XL","XXL"],
         "category": "Men",
         "type": "Tee"
@@ -27,7 +27,7 @@
         "name": "Double Button Shirt",
         "description": "A classic button down shirt made double breasted, made in 3 different type of fabric.",
         "price": [119.99],
-        "color": ["#90EE90","#964B00"],
+        "color": ["#ecdcd3","#e0e5d4"],
         "size": ["XS","S","M","L","XL","XXL"],
         "category": "Men",
         "type": "Shirt"
@@ -37,7 +37,7 @@
         "image": ["/Product/Candle-Mangosteen.webp","/Product/Candle-Mangosteen2.webp"],
         "name": "Organic Soy Wax Candle - Tiger Lily & Orange",
         "description": "The fresh smell of fresh-cut tiger lilies, with a base note of fresh lilacs, a hint of fresh greenery and orange creates an effervescent top note for this exotic scent",
-        "price": [35.00, 75.00],
+        "price": [35.80, 75.50],
         "size": ["65g","180g"],
         "category": "Accessories",
         "type": "candle"
@@ -48,7 +48,7 @@
         "name": "Batik Series iPad Case",
         "description": "Protect your tech with our new range of Batik ipad Cases kitted out in trending Batik Motifs. Created to keep your tech safe on the go with Batik Lining inside.",
         "price": [75.99],
-        "color": ["#00008B","#90EE90","#FFD580"],
+        "color": ["#202434","#54846c","#a46c24"],
         "category": "Accessories",
         "type": "stationery"
     },
@@ -59,6 +59,7 @@
         "description": "Featuring roomy long sleeves and ribbon details, a crop top you would love!",
         "price":[89.99],
         "size": ["XS","S","M","L","XL","XXL"],
+        "color": ["#d4ccb4","#FFFFFF"],
         "category": "Women",
         "type": "crop"
     },
@@ -69,6 +70,7 @@
         "description": "This cropped, short-sleeved button top is made from 100% Bamboo Sateen to keep you silky cool all day and night.",
         "price": [59.99],
         "size": ["XS","S","M","L","XL","XXL"],
+        "color": ["#acb8b0","#ac847c"],
         "category": "Women",
         "type": "top"
     },
@@ -79,6 +81,7 @@
         "description": "The Solid Baby Tee delivers softness and versatility for every occasion. Tuck it into high-waisted jeans or rock it with leggings to the gym - looking good never felt so comfortable.",
         "price": [39.99],
         "size": ["XS","S","M","L","XL","XXL"],
+        "color": ["#102c4c","#acbcbc","#bc3840"],
         "category": "Women",
         "type": "top"
     },
@@ -89,6 +92,7 @@
         "description": "Boy casual tee, Round neckline, Short sleeve, Embroidery design on detailing, Off white colour.",
         "size": ["XS","S","M","L","XL","XXL"],
         "price": [29.99],
+        "color": ["#FFFFFF"],
         "category": "Kids",
         "type": "boy"
     },
@@ -99,6 +103,7 @@
         "description": "Girl casual polo tee, Johnny neckline, Short sleeve, Embroidery design on detailing, Off white colour.",
         "size": ["XS","S","M","L","XL","XXL"],
         "price": [29.99],
+        "color": ["#FFFFFF"],
         "category": "Kids",
         "type": "girl"
     },
@@ -109,6 +114,7 @@
         "description": "Girl casual cardigan, V-neckline with drawstring closure, Long sleeve, Knit wear, Beige colour.",
         "size": ["XS","S","M","L","XL","XXL"],
         "price": [49.99],
+        "color":["#F5F5DC"],
         "category": "Kids",
         "type": "girl"
     }
