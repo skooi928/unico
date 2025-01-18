@@ -29,12 +29,18 @@ body, html {
 
 .product-container {
     display: flex;
-    padding: 20px; /* Add padding to the container */
-    gap: 20px; /* Add gap between sidebar and card container */
+    padding: 20px;
+    gap: 20px;
+    min-height: 100vh; /* Add minimum height */
+    overflow: visible; /* Ensure overflow is not hidden */
 }
 
 .sidebar {
-    flex: 0 0 250px; /* Fixed width for the sidebar */
+    flex: 0 0 250px;
+    position: sticky;
+    top: 100px; /* Add distance from top */
+    height: fit-content; /* Adjust height to content */
+    align-self: flex-start; /* Align to start of container */
 }
 
 .card-container {
