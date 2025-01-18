@@ -36,7 +36,7 @@ export const Product = () => {
     if (event.deltaY > 0 && window.scrollY <= 90) {
       setHasScrolled(true);
       window.scrollTo({
-        top: searchRef.current.offsetTop - 90,
+        top: searchRef.current.offsetTop - 80,
         behavior: "smooth",
       });
     } else {

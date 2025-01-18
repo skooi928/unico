@@ -9,10 +9,21 @@ export const Cart = () => {
   const navigate = useNavigate();
   const { cartItems, addToCart } = useCart();
   const [items, setItems] = useState(cartItems || []);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     setItems(cartItems || []);
   }, [cartItems]);
+
+  useEffect(() => {
+    // Check if the user is logged in by verifying the presence of a token or cookies
+    const token = localStorage.getItem("token");
+    const email = document.cookie.split("; ").find(row => row.startsWith("email="));
+    const password = document.cookie.split("; ").find(row => row.startsWith("password="));
+    if (token || (email && password)) {
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   const removeFromCart = async (id, size, color) => {
     try {
@@ -42,12 +53,22 @@ export const Cart = () => {
     <div className="cart-page">
       <Header />
       <div className="cart-content">
-        {items.length === 0 ? (
+        {!isLoggedIn ? (
+          <div className="empty-cart">
+            <p>Please login to an account first</p>
+            <button
+              className="continue-shopping-btn"
+              onClick={() => navigate("/login")}
+            >
+              Login
+            </button>
+          </div>
+        ) : items.length === 0 ? (
           <div className="empty-cart">
             <p>Your cart is empty. Add your items here!</p>
             <button
               className="continue-shopping-btn"
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/product")}
             >
               Continue Shopping
             </button>
