@@ -1,11 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import './Payment.css';
 
 export const Payment = () => {
+  const location = useLocation();
+  const { items } = location.state || { items: [] };
+
   const [cardNumber, setCardNumber] = useState('');
   const [expirationDate, setExpirationDate] = useState('');
   const [cvv, setCvv] = useState('');
   const [nameOnCard, setNameOnCard] = useState('');
+
+  useEffect(() => {
+    // Disable body scrolling when the component mounts
+    document.body.classList.add('no-scroll');
+
+    // Enable body scrolling when the component unmounts
+    return () => {
+      document.body.classList.remove('no-scroll');
+    };
+  }, []);
 
   const handlePayment = (e) => {
     e.preventDefault();
@@ -22,58 +36,27 @@ export const Payment = () => {
   return (
     <div className="payment-container">
       <h2>Payment Page</h2>
-      <form onSubmit={handlePayment} className="payment-form">
-        <div className="form-group">
-          <label>
-            Card Number:
-            <input
-              type="text"
-              value={cardNumber}
-              onChange={(e) => setCardNumber(e.target.value)}
-              placeholder="1234 5678 9012 3456"
-              maxLength="16"
-              required
-            />
-          </label>
-        </div>
-        <div className="form-group">
-          <label>
-            Name on Card:
-            <input
-              type="text"
-              value={nameOnCard}
-              onChange={(e) => setNameOnCard(e.target.value)}
-              placeholder="John Doe"
-              required
-            />
-          </label>
-        </div>
-        <div className="form-group-flex">
-          <label>
-            Expiration Date:
-            <input
-              type="text"
-              value={expirationDate}
-              onChange={(e) => setExpirationDate(e.target.value)}
-              placeholder="MM/YY"
-              maxLength="5"
-              required
-            />
-          </label>
-          <label>
-            CVV:
-            <input
-              type="password"
-              value={cvv}
-              onChange={(e) => setCvv(e.target.value)}
-              placeholder="123"
-              maxLength="3"
-              required
-            />
-          </label>
-        </div>
-        <button type="submit">Submit Payment</button>
-      </form>
+      <div className="order-summary">
+        <h3>Order Summary</h3>
+        {items.length === 0 ? (
+          <p>No items in the cart.</p>
+        ) : (
+          <ul>
+            {items.map((item) => (
+              <li key={item.id}>
+                <img src={item.image[0]} alt={item.name} className="order-item-image" />
+                <div className="order-item-details">
+                  <p>{item.name}</p>
+                  <p>Price: RM{item.price}</p>
+                  <p>Size: {Array.isArray(item.size) ? item.size.join(", ") : item.size || "N/A"}</p>
+                  <p>Quantity: {item.quantity}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+        <button className='payment-button' type="submit">Submit Payment</button>
     </div>
   );
 };

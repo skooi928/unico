@@ -5,6 +5,7 @@ import Men from "../assets/Product/Men.jpg";
 import Search from "./Search";
 import Sidebar from "../components/Product/Sidebar";
 import Card from '../components/Product/Card';
+import { useCart } from './Cart/CartContext';
 import './Product.css';
 
 export const Product = () => {
@@ -15,6 +16,7 @@ export const Product = () => {
 
     const location = useLocation();
     const selectedCategory = location.hash.replace('#', '') || "";
+    const { addToCart } = useCart();
 
     const handleScroll = () => {
         setScrollPosition(window.scrollY); // Update scroll position
@@ -28,7 +30,7 @@ export const Product = () => {
     }, []);
 
     useEffect(() => {
-        fetch('http://localhost:8080/api/products') // Update the port here
+        fetch('http://localhost:8080/api/products')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -84,7 +86,8 @@ export const Product = () => {
                             category={product.category}
                             name={product.name}
                             price={`RM${product.price}`}
-                            size={product.size ? product.size.join(", ") : "N/A"} // Add null check here                     
+                            size={product.size ? product.size.join(", ") : "N/A"} // Add null check here
+                            onAddToCart={() => addToCart(product)} // Add to cart handler
                         />
                     ))}
                 </div>

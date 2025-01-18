@@ -24,7 +24,6 @@ public class ProductServlet extends HttpServlet {
         ObjectMapper objectMapper = new ObjectMapper();
 
         String pathInfo = request.getPathInfo();
-        System.out.println("pathInfo: " + pathInfo); // debug log
         if (pathInfo == null || pathInfo.equals("/")) {
             try (InputStream inputStream = getServletContext().getResourceAsStream("/WEB-INF/data/product.json")) {
                 if (inputStream == null) {

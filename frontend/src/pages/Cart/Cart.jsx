@@ -1,41 +1,17 @@
 import React, { useState, useEffect } from "react";
-import "./Cart.css";
-import { Header } from "../../components";
-import Card from '../../components/Product/Card';
 import { useNavigate } from "react-router-dom";
 import { useCart } from "./CartContext";
-import  ItemsInCart  from "./ItemsInCart";
-
-export const setCartItems = (item, cartItems, setCartItems) => {
-  const existingItem = cartItems.find((cartItem) => 
-    cartItem.id === item.id && 
-    cartItem.size === item.size && 
-    cartItem.color === item.color
-  );
-
-  let updatedCartItems;
-  if (existingItem) {
-    updatedCartItems = cartItems.map(cartItem =>
-      cartItem.id === item.id && cartItem.size === item.size && cartItem.color === item.color
-        ? { ...cartItem, quantity: cartItem.quantity + 1 }
-        : cartItem
-    );
-  } else {
-    updatedCartItems = [...cartItems, { ...item, quantity: 1 }];
-  }
-
-  setCartItems(updatedCartItems);
-  console.log('Updated Cart Items:', updatedCartItems); // For debugging
-};
+import ItemsInCart from "./ItemsInCart";
+import Header from "../../components/Header";
+import "./Cart.css";
 
 export const Cart = () => {
   const navigate = useNavigate();
-
-  const { cartItems, setCartItems } = useCart();
-  const [items, setItems] = useState(cartItems);
+  const { cartItems, addToCart } = useCart();
+  const [items, setItems] = useState(cartItems || []);
 
   useEffect(() => {
-    setItems(cartItems);
+    setItems(cartItems || []);
   }, [cartItems]);
 
   return (
@@ -55,15 +31,15 @@ export const Cart = () => {
         ) : (
           <>
             <div className="card-container">
-              {items.map((item) => (
+              {items.map((item, index) => (
                 <ItemsInCart
-                  key={item.id}
+                  key={`${item.id}-${index}`} // Ensure unique keys
                   id={item.id}
-                  image={item.image[0]} // Display the first image
+                  image={item.image} // Pass the image property
                   name={item.name}
                   price={`RM${item.price}`}
-                  size={Array.isArray(item.size) ? item.size.join(", ") : item.size || "N/A"} 
-                  color={item.color}
+                  size={Array.isArray(item.size) ? item.size.join(", ") : item.size || "N/A"}
+                  category={item.category} // Ensure category is passed
                   quantity={item.quantity}
                 />
               ))}
@@ -71,9 +47,15 @@ export const Cart = () => {
             <div className="button-container">
               <button
                 className="continue-shopping-btn"
-                onClick={() => navigate("/")}
+                onClick={() => navigate(-1)}
               >
                 Continue Shopping
+              </button>
+              <button
+                className="proceed-payment-btn"
+                onClick={() => navigate("/payment", { state: { items } })}
+              >
+                Proceed to Payment
               </button>
             </div>
           </>

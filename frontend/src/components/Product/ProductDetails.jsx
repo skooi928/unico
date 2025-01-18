@@ -2,27 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import './ProductDetails.css';
 import Header from '../Header';
-import { setCartItems } from "../../pages/Cart/Cart";
 import { useCart } from "../../pages/Cart/CartContext";
-
-const handleAddToCart = () => {
-    if (selectedSize && selectedColor) {
-      const cartItem = {
-        id: product.id,
-        name: product.name,
-        image: product.image[0], // Use the first image as the thumbnail
-        price: product.price,
-        size: selectedSize,
-        color: selectedColor,
-        category: product.category,
-      };
-      setCartItems(cartItem);
-      alert(`${product.name} has been added to the cart.`);
-    } else {
-      alert("Please select a size and color before adding to the cart.");
-    }
-  };
-  
 
 const ProductDetails = () => {
     const { id } = useParams();
@@ -69,10 +49,11 @@ const ProductDetails = () => {
           addToCart({
             id: product.id,
             name: product.name,
-            image: product.image,
+            image: product.image[currentImageIndex], // Use the current image
             size: selectedSize,
             color: selectedColor,
             price: product.price,
+            category: product.category,
           });
           alert("Item added to cart!");
         } else {

@@ -2,14 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import './Card.css';
-import { setCartItems } from '../../pages/Cart/Cart';
 
-const Card = ({ id, image, category, name, price, size }) => {
+const Card = ({ id, image, category, name, price, size, onAddToCart }) => {
     const sizeText = Array.isArray(size) ? size.join(', ') : size;
-
-    const handleAddToCart = () => {
-        setCartItems({ id, image, category, name, price, size });
-    };
 
     return (
         <Link to={`/product/${id}`} className="card-link">
@@ -20,9 +15,9 @@ const Card = ({ id, image, category, name, price, size }) => {
                     <p className="card-title">{name}</p>
                     <p className="card-price">{price}</p>
                     {size && <p className="card-size">Size: {sizeText}</p>}
-                    <button onClick={handleAddToCart}>
+                    {/* <button onClick={onAddToCart}>
                         Add to Cart
-                    </button>
+                    </button> */}
                 </div>
             </div>
         </Link>
@@ -39,6 +34,7 @@ Card.propTypes = {
         PropTypes.string,
         PropTypes.arrayOf(PropTypes.string)
     ]),
+    onAddToCart: PropTypes.func.isRequired,
 };
 
 export default Card;

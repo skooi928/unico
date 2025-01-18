@@ -2,9 +2,9 @@
 .card-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 16px; /* Space between cards */
+    gap: 20px; /* Space between cards */
     justify-content: center; /* Center cards horizontally */
-    padding: 16px;
+    padding: 20px;
 }
 
 /* Card Styles */
@@ -16,8 +16,8 @@
     overflow: hidden;
     font-family: Arial, sans-serif;
     transition: transform 0.3s ease, box-shadow 0.3s ease; /* Added transition for smooth hover effect */
-    height: 380px; /* Adjusted card height */
     position: relative; /* Make card a reference point for absolutely positioned elements */
+    background-color: white; /* Ensure background color matches */
 }
 
 /* Hover effect */
@@ -27,35 +27,40 @@
 }
 
 /* Card Image */
-.card-img {
+.card-image {
     width: 100%;
-    height: 220px; /* Reduced image height */
-    object-fit: cover; /* Ensures the image fills the space without distortion */
+    height: 200px; /* Adjusted image height */
+    object-fit: contain; /* Ensures the image fills the space without distortion */
+    border-radius: 8px;
+    margin: 10px;
 }
 
 /* Card Content */
 .card-content {
-    padding: 12px; /* Reduced padding */
-    height: calc(100% - 130px); /* Adjust content height based on image height */
+    padding: 16px; /* Adjusted padding */
 }
 
 /* Card Title */
 .card-title {
-    font-size: 1em;
-    margin: 0 0 8px;
+    font-size: 1.2em;
+    margin: 0 0 10px;
+    font-weight: bold;
+    color: #333;
 }
 
 /* Card Price */
 .card-price {
-    font-size: 1em;
+    font-size: 1.1em;
     font-weight: bold;
-    margin: 0 0 8px;
+    margin: 0 0 10px;
+    color: #000;
 }
 
 /* Card Size */
 .card-size {
     font-size: 1em;
     color: #555;
+    margin-bottom: 10px;
 }
 
 /* Card Category - Positioned to the left corner */
@@ -69,6 +74,13 @@
     background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background for better readability */
     padding: 4px 8px; /* Padding around the category text */
     border-radius: 4px; /* Rounded corners */
+}
+
+/* Card Quantity */
+.card-quantity {
+    font-size: 1em;
+    color: #555;
+    margin-bottom: 10px;
 }
 
 /* Remove underline from Link */
@@ -86,7 +98,6 @@
     .card {
         width: 100%; /* Cards take full width on small screens */
         max-width: 350px; /* Maximum width for larger cards */
-        height: 320px; /* Adjust height for small screens */
     }
 }
 
@@ -94,6 +105,5 @@
     .card {
         width: 100%; /* Cards take full width on very small screens */
         max-width: 300px; /* Adjust for mobile */
-        height: 290px; /* Adjust height for mobile screens */
     }
 }

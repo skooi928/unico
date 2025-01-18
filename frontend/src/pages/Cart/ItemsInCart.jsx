@@ -10,11 +10,11 @@ const ItemsInCart = ({ id, image, category, name, price, size, quantity }) => {
         <Link to={`/product/${id}`} className="card-link">
             <div className="card">
                 <div className="card-content">
-                    <img src={image[0]} alt={name} className="card-image" />
+                    <img src={image} alt={name} className="card-image" />
                     <p className="card-title">{name}</p>
                     <p className="card-price">{price}</p>
                     {size && <p className="card-size">Size: {sizeText}</p>}
-                    {category && <p className="card-category">Color: {category}</p>}
+                    {category && <p className="card-category">Category: {category}</p>}
                     <p className="card-quantity">Quantity: {quantity > 1 ? quantity : 1}</p>
                 </div>
             </div>
