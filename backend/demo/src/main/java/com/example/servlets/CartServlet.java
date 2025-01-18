@@ -1,24 +1,33 @@
 package com.example.servlets;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.example.models.Cart;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 @WebServlet("/cart")
 public class CartServlet extends HttpServlet {
-    private Gson gson = new Gson();
+    final private Gson gson = new Gson();
 
     // Add CORS headers
     private void addCorsHeaders(HttpServletResponse response) {
         response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, OPTIONS");
         response.setHeader("Access-Control-Allow-Headers", "Content-Type");
     }
 
@@ -91,6 +100,30 @@ public class CartServlet extends HttpServlet {
 
         response.setContentType("application/json");
         response.getWriter().write("{\"message\": \"Item added to cart\"}");
+    }
+
+    // DELETE to remove a cart item
+    @Override
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        addCorsHeaders(response);
+        String realPath = getServletContext().getRealPath("/WEB-INF/data/cart.json");
+        List<Cart> cartItems = loadCartItems(realPath);
+
+        // parse incoming JSON
+        BufferedReader reader = request.getReader();
+        Cart itemToRemove = gson.fromJson(reader, Cart.class);
+
+        // remove item from cart
+        cartItems.removeIf(item -> item.getId() == itemToRemove.getId() &&
+                                    item.getSize().equals(itemToRemove.getSize()) &&
+                                    item.getColor().equals(itemToRemove.getColor()));
+
+        // save to cart.json
+        saveCartItems(realPath, cartItems);
+
+        response.setContentType("application/json");
+        response.getWriter().write("{\"message\": \"Item removed from cart\"}");
     }
 
     // Handle OPTIONS preflight request

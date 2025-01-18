@@ -7,6 +7,10 @@
     padding: 20px;
 }
 
+.card-wrapper {
+    position: relative; /* Make the wrapper a reference point for the overlay */
+}
+
 /* Card Styles */
 .card {
     width: 300px;
@@ -22,7 +26,7 @@
 
 /* Hover effect */
 .card:hover {
-    transform: translateY(-10px); /* Card slightly lifts when hovered */
+    transform: translateY(-5px); /* Card slightly lifts when hovered */
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
 }
 
@@ -104,6 +108,43 @@
 .card-link {
     text-decoration: none; /* Removes the underline */
     color: inherit; /* Ensures the text color is inherited from the parent */
+}
+
+/* Card Overlay */
+.card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease; /* Smooth transition for the overlay */
+}
+
+.card:hover .card-overlay {
+    opacity: 1; /* Show the overlay on hover */
+}
+
+/* Remove Button */
+.remove-button {
+    background-color: #ff4d4d; /* Red background */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1em;
+    transition: transform 0.3s ease; /* Smooth transition for background color */
+    z-index: 100;
+}
+
+.remove-button:hover {
+    transform: scale(1.05); /* Slightly increase size on hover */
 }
 
 /* Media Query for Responsiveness */

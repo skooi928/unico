@@ -14,6 +14,30 @@ export const Cart = () => {
     setItems(cartItems || []);
   }, [cartItems]);
 
+  const removeFromCart = async (id, size, color) => {
+    try {
+      const response = await fetch("http://localhost:8080/api/cart", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id, size, color }),
+      });
+
+      if (response.ok) {
+        setItems((prevItems) =>
+          prevItems.filter(
+            (item) => !(item.id === id && item.size === size && item.color === color)
+          )
+        );
+      } else {
+        console.error("Failed to remove item from cart");
+      }
+    } catch (error) {
+      console.error("Error removing item from cart:", error);
+    }
+  };
+
   return (
     <div className="cart-page">
       <Header />
@@ -41,6 +65,7 @@ export const Cart = () => {
                   size={Array.isArray(item.size) ? item.size.join(", ") : item.size || "N/A"}
                   color={item.color} // Pass the color property
                   quantity={item.quantity}
+                  onRemove={removeFromCart} // Pass the remove function
                 />
               ))}
             </div>
