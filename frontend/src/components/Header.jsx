@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocation, NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './Header.css';
-import logo from "../assets/logo.svg";
+import logo from "../assets/logo.webp";
 import heartIcon from "/Icon/heart.webp"; 
 import cartIcon from "/Icon/shopping-cart.webp";
 import userIcon from "/Icon/user.webp";
