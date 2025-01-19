@@ -3,7 +3,9 @@ import { useParams, useNavigate } from "react-router-dom";
 import "./ProductDetails.css";
 import Header from "../Header";
 import { useCart } from "../../pages/Cart/CartContext";
+import { getCookie } from "../../utils/cookie";
 import PopUpMessage from "../PopUpMessage";
+import LoadingSpinner from "../LoadingSpinner";
 
 export const ProductDetails = () => {
   const { id } = useParams();
@@ -24,6 +26,13 @@ export const ProductDetails = () => {
   const [showPopup, setShowPopup] = useState(false);
 
   const [isStockUpdating, setIsStockUpdating] = useState(false);
+
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const userEmail = getCookie("user");
+    setIsAuthenticated(!!userEmail);
+  }, []);
 
   // Add getStockForSizeAndColor function
   const getStockForSizeAndColor = (sizeIndex, colorIndex) => {
@@ -53,7 +62,7 @@ export const ProductDetails = () => {
   }, [id]);
 
   if (!product) {
-    return <div>Loading...</div>;
+    return <LoadingSpinner />;
   }
 
   const handleSizeSelection = (size, index) => {
@@ -161,6 +170,7 @@ export const ProductDetails = () => {
   };
 
   const isAddToCartDisabled = () => {
+    if (!isAuthenticated) return true;
     if (currentStock === 0) return true;
     if (product.size && product.size.length > 0) {
       return !selectedSize || !selectedColor;

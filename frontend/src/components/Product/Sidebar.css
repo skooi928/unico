@@ -9,6 +9,7 @@
     flex-shrink: 0; /* Prevent the sidebar from shrinking in flex containers */
     height: 100vh; /* Fixed height to the screen */
     overflow-y: auto; /* Enable vertical scrolling if content overflows */
+    width: 100%;
 }
 
 /* Sidebar menu styling */
