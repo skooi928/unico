@@ -108,16 +108,11 @@ public class CartServlet extends HttpServlet {
                         int stockIndex = colorIndex + (sizeIndex * product.getColor().size());
 
                         int availableStock = product.getStock().get(stockIndex);
-                        if (availableStock < item.getQuantity()) {
-                            // Update quantity if stock is insufficient
-                            item.setQuantity(availableStock);
-                            needsSaving = true;
-                        }
-                        // Only add item if stock > 0
-                        if (availableStock > 0) {
+
+                        // Only add item if stock >= 0
+                        if (availableStock >= 0) {
                             userCartItems.add(item);
-                        } else {
-                            needsSaving = true; // Remove item if stock is 0
+                            needsSaving = true;
                         }
                         break;
                     }
