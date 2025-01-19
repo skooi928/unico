@@ -43,7 +43,7 @@ export const Payment = () => {
         ?.split("=")[1];
 
       if (userEmail) {
-        await fetch("http://localhost:8080/api/cart", {
+        await fetch("https://unico-201.onrender.com/api/cart", {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(userEmail),
@@ -75,16 +75,23 @@ export const Payment = () => {
                   className="order-item-image"
                 />
                 <div className="order-item-details">
-                  <p><strong>{item.name}</strong></p>
-                  <p>Price: <strong>RM{item.price}</strong></p>
                   <p>
-                    Size:{" "}<strong>
-                    {Array.isArray(item.size)
-                      ? item.size.join(", ")
-                      : item.size || "N/A"}
+                    <strong>{item.name}</strong>
+                  </p>
+                  <p>
+                    Price: <strong>RM{item.price}</strong>
+                  </p>
+                  <p>
+                    Size:{" "}
+                    <strong>
+                      {Array.isArray(item.size)
+                        ? item.size.join(", ")
+                        : item.size || "N/A"}
                     </strong>
                   </p>
-                  <p>Quantity: <strong>{item.quantity}</strong></p>
+                  <p>
+                    Quantity: <strong>{item.quantity}</strong>
+                  </p>
                 </div>
               </li>
             ))}
@@ -92,11 +99,15 @@ export const Payment = () => {
         )}
         <div className="total-price">
           <h3>Total Amount</h3>
-            <p>-- RM {totalPrice.toFixed(2)} --</p>
+          <p>-- RM {totalPrice.toFixed(2)} --</p>
         </div>
       </div>
       <div className="payment-form">
-        <button className="payment-button" type="submit" onClick={handlePayment}>
+        <button
+          className="payment-button"
+          type="submit"
+          onClick={handlePayment}
+        >
           Submit Payment
         </button>
         <button className="cancel-button" onClick={() => navigate("/cart")}>

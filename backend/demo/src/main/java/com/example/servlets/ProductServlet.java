@@ -64,11 +64,11 @@ public class ProductServlet extends HttpServlet {
     }
 
     private void setCorsHeaders(HttpServletResponse response) {
-        response.setHeader("Access-Control-Allow-Origin", "http://localhost:5173"); // Adjust
-                                                                                    // the
-                                                                                    // origin
-                                                                                    // as
-                                                                                    // needed
+        response.setHeader("Access-Control-Allow-Origin", "https://unico-dl7u.onrender.com"); // Adjust
+        // the
+        // origin
+        // as
+        // needed
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
         response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
         response.setHeader("Access-Control-Allow-Credentials", "true");
