@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import "./ProductDetails.css";
 import Header from "../Header";
 import { useCart } from "../../pages/Cart/CartContext";
-import { getCookie } from "../../utils/cookie";
+import { getCookie } from "../../utils/cookies";
 import PopUpMessage from "../PopUpMessage";
 import LoadingSpinner from "../LoadingSpinner";
 
@@ -30,8 +30,12 @@ export const ProductDetails = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    const userEmail = getCookie("user");
-    setIsAuthenticated(!!userEmail);
+    const email = getCookie("email");
+    if (!email) {
+      setIsAuthenticated(false);
+    } else {
+      setIsAuthenticated(true);
+    }
   }, []);
 
   // Add getStockForSizeAndColor function
