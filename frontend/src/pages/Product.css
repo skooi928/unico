@@ -43,7 +43,6 @@ body, html {
     flex: 0 0 250px;
     position: sticky;
     top: 100px; /* Add distance from top */
-    height: fit-content; /* Adjust height to content */
     align-self: flex-start; /* Align to start of container */
 }
 

@@ -78,6 +78,46 @@
     border-radius: 5px;
 }
 
+/* Custom price filter styles */
+.custom-price-filter {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.custom-price-filter input {
+    width: 60px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.custom-price-filter input::-webkit-outer-spin-button,
+.custom-price-filter input::-webkit-inner-spin-button {
+    -webkit-appearance: none; /* Remove spinners in Chrome, Safari, Edge, and Opera */
+    margin: 0; /* Remove margin */
+}
+
+.custom-price-filter button {
+    padding: 5px 10px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.custom-price-filter button:hover {
+    background-color: #45a049;
+}
+
+/* Error message styling */
+.error-message {
+    font-size: 0.8rem;
+    color: red;
+    margin-top: 10px;
+}
+
 /* Arrow icon styling */
 .arrow1 {
     font-size: 0.8rem; /* Set the desired size for the arrow */
@@ -93,12 +133,4 @@
 /* Arrow rotation when collapsed */
 .arrow1.down {
     transform: rotate(0deg); /* Default down arrow */
-}
-
-/* Responsive behavior */
-@media (max-width: 768px) {
-    .sidebar {
-        width: 100%; /* Full width for smaller screens */
-        margin-bottom: 10px;
-    }
 }
