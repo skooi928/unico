@@ -77,7 +77,10 @@ body.no-scroll {
   display: flex;
   flex-direction: row;
   gap: 20px;
-  width: 50vw;
+  width: 40vw;
+  justify-content: center;
+  align-items: center;
+  
 }
 
 .payment-button {
