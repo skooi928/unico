@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import './Sidebar.css';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa'; // Import arrows from react-icons
 
-const Sidebar = ({ onPriceSelect }) => {
-    const [expanded, setExpanded] = useState({ gender: false, price: false });
+const Sidebar = ({ onPriceSelect, onGenderSelect, onTypeSelect }) => {
+    const [expanded, setExpanded] = useState({ gender: false, price: false, type: false });
     const [selectedPriceRange, setSelectedPriceRange] = useState([0, Infinity]);
+    const [selectedGender, setSelectedGender] = useState('All');
+    const [selectedType, setSelectedType] = useState('All');
+    const [minPrice, setMinPrice] = useState('');
+    const [maxPrice, setMaxPrice] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
     const location = useLocation();
+    const navigate = useNavigate();
 
     const toggleMenu = (menu) => {
         setExpanded((prev) => ({ ...prev, [menu]: !prev[menu] }));
@@ -23,6 +29,56 @@ const Sidebar = ({ onPriceSelect }) => {
         } else {
             setSelectedPriceRange([min, max]);
             onPriceSelect(min, max);
+        }
+    };
+
+    const handleGenderSelect = (gender) => {
+        if (selectedGender === gender) {
+            // Deselect if the same gender is clicked again
+            setSelectedGender('All');
+            onGenderSelect('All');
+            navigate('/product#All'); // Change URL to /product#All
+        } else {
+            setSelectedGender(gender);
+            onGenderSelect(gender);
+            navigate(`/product#${gender}`); // Change URL to the selected gender
+        }
+    };
+
+    const handleTypeSelect = (type) => {
+        if (selectedType === type) {
+            // Deselect if the same type is clicked again
+            setSelectedType('All');
+            onTypeSelect('All');
+        } else {
+            setSelectedType(type);
+            onTypeSelect(type);
+        }
+    };
+
+    const handleCustomPriceSelect = () => {
+        const min = parseFloat(minPrice) || 0;
+        const max = parseFloat(maxPrice) || Infinity;
+        if (min > max) {
+            setErrorMessage('Error: Minimum price cannot be greater than maximum price.');
+            return;
+        }
+        setErrorMessage('');
+        setSelectedPriceRange([min, max]);
+        onPriceSelect(min, max);
+    };
+
+    const handleMinPriceChange = (e) => {
+        const value = e.target.value;
+        if (value.match(/^\d*\.?\d{0,2}$/)) {
+            setMinPrice(value);
+        }
+    };
+
+    const handleMaxPriceChange = (e) => {
+        const value = e.target.value;
+        if (value.match(/^\d*\.?\d{0,2}$/)) {
+            setMaxPrice(value);
         }
     };
 
@@ -51,16 +107,12 @@ const Sidebar = ({ onPriceSelect }) => {
                         <ul className="sidebar-submenu">
                             <li className="sidebar-subitem">
                                 <NavLink
-                                    to="/product#All"
-                                    className={isActive('#All') ? 'active-link' : ''}
-                                >
-                                    All
-                                </NavLink>
-                            </li>
-                            <li className="sidebar-subitem">
-                                <NavLink
                                     to="/product#Men"
-                                    className={isActive('#Men') ? 'active-link' : ''}
+                                    className={selectedGender === 'Men' ? 'active-link' : ''}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        handleGenderSelect('Men');
+                                    }}
                                 >
                                     Men
                                 </NavLink>
@@ -68,7 +120,11 @@ const Sidebar = ({ onPriceSelect }) => {
                             <li className="sidebar-subitem">
                                 <NavLink
                                     to="/product#Women"
-                                    className={isActive('#Women') ? 'active-link' : ''}
+                                    className={selectedGender === 'Women' ? 'active-link' : ''}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        handleGenderSelect('Women');
+                                    }}
                                 >
                                     Women
                                 </NavLink>
@@ -76,9 +132,59 @@ const Sidebar = ({ onPriceSelect }) => {
                             <li className="sidebar-subitem">
                                 <NavLink
                                     to="/product#Kids"
-                                    className={isActive('#Kids') ? 'active-link' : ''}
+                                    className={selectedGender === 'Kids' ? 'active-link' : ''}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        handleGenderSelect('Kids');
+                                    }}
                                 >
                                     Kids
+                                </NavLink>
+                            </li>
+                        </ul>
+                    )}
+                </li>
+
+                {/* Type Menu */}
+                <li className="sidebar-item">
+                    <div
+                        onClick={() => toggleMenu('type')}
+                        className="sidebar-expandable"
+                        tabIndex="0"
+                        aria-expanded={expanded.type}
+                    >
+                        Type
+                        {/* Show FaChevronUp if expanded, FaChevronDown if collapsed */}
+                        {expanded.type ? (
+                            <FaChevronUp className="arrow1" />
+                        ) : (
+                            <FaChevronDown className="arrow1" />
+                        )}
+                    </div>
+                    {expanded.type && (
+                        <ul className="sidebar-submenu">
+                            <li className="sidebar-subitem">
+                                <NavLink
+                                    to="#type-top"
+                                    className={selectedType === 'Top' ? 'active-link' : ''}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        handleTypeSelect('Top');
+                                    }}
+                                >
+                                    Top
+                                </NavLink>
+                            </li>
+                            <li className="sidebar-subitem">
+                                <NavLink
+                                    to="#type-bottom"
+                                    className={selectedType === 'Bottom' ? 'active-link' : ''}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        handleTypeSelect('Bottom');
+                                    }}
+                                >
+                                    Bottom
                                 </NavLink>
                             </li>
                         </ul>
@@ -151,6 +257,27 @@ const Sidebar = ({ onPriceSelect }) => {
                                     RM 150 and above
                                 </NavLink>
                             </li>
+                            <li className="sidebar-subitem">
+                                <div className="custom-price-filter">
+                                    <input
+                                        type="number"
+                                        step="0.01"
+                                        placeholder="Min"
+                                        value={minPrice}
+                                        onChange={handleMinPriceChange}
+                                    />
+                                    <span>-</span>
+                                    <input
+                                        type="number"
+                                        step="0.01"
+                                        placeholder="Max"
+                                        value={maxPrice}
+                                        onChange={handleMaxPriceChange}
+                                    />
+                                    <button onClick={handleCustomPriceSelect}>Apply</button>
+                                </div>
+                                {errorMessage && <p className="error-message">{errorMessage}</p>}
+                            </li>
                         </ul>
                     )}
                 </li>
@@ -161,6 +288,8 @@ const Sidebar = ({ onPriceSelect }) => {
 
 Sidebar.propTypes = {
     onPriceSelect: PropTypes.func.isRequired,
+    onGenderSelect: PropTypes.func.isRequired,
+    onTypeSelect: PropTypes.func.isRequired,
 };
 
 export default Sidebar;

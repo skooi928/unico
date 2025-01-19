@@ -18,6 +18,7 @@ export const Product = () => {
   const [searchKeyword, setSearchKeyword] = useState("");
   const [selectedPriceRange, setSelectedPriceRange] = useState([0, Infinity]);
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedType, setSelectedType] = useState("All");
   const [hasScrolled, setHasScrolled] = useState(false);
 
   const location = useLocation();
@@ -89,6 +90,10 @@ export const Product = () => {
     setSelectedCategory(category);
   };
 
+  const handleTypeSelection = (type) => {
+    setSelectedType(type);
+  };
+
   const filteredProducts = productsData.filter(
     (product) =>
       (product.name.toLowerCase().includes(searchKeyword.toLowerCase()) ||
@@ -99,6 +104,8 @@ export const Product = () => {
         product.type.toLowerCase().includes(searchKeyword.toLowerCase())) &&
       (selectedCategory === "All" ||
         product.category.toLowerCase() === selectedCategory.toLowerCase()) &&
+      (selectedType === "All" ||
+        product.type.toLowerCase() === selectedType.toLowerCase()) &&
       product.price[0] >= selectedPriceRange[0] &&
       product.price[0] <= selectedPriceRange[1]
   );
@@ -120,7 +127,11 @@ export const Product = () => {
       </div>
 
       <div className="product-container">
-        <Sidebar onPriceSelect={handlePriceSelection} />
+        <Sidebar
+          onPriceSelect={handlePriceSelection}
+          onGenderSelect={handleCategorySelection}
+          onTypeSelect={handleTypeSelection}
+        />
         <div className="card-container">
           {filteredProducts.map((product) => (
             <Card
