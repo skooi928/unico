@@ -4,8 +4,8 @@ import PropTypes from "prop-types";
 import "./Header.css";
 import logo from "../assets/logo.webp";
 import heartIcon from "/Icon/heart.webp";
-import cartIcon from "/Icon/shopping-cart.webp";
-import userIcon from "/Icon/user.webp";
+import cartIcon from "../../public/Icon/shopping-cart.webp";
+import userIcon from "../../public/Icon/user.webp";
 
 export const Header = ({ onCategorySelect }) => {
   const location = useLocation();
