@@ -14,7 +14,7 @@ export const Cart = () => {
 
   useEffect(() => {
     if (userEmail) {
-      fetch(`https://unico-201.onrender.com/api/cart?userEmail=${userEmail}`)
+      fetch(`http://localhost:8080/api/cart?userEmail=${userEmail}`)
         .then((response) => response.json())
         .then((data) => setCartItems(data)) // Use setCartItems to set cart items
         .catch((error) => console.error("Error fetching cart items:", error));
@@ -37,7 +37,7 @@ export const Cart = () => {
 
   const removeFromCart = async (id, size, color) => {
     try {
-      const response = await fetch("https://unico-201.onrender.com/api/cart", {
+      const response = await fetch("http://localhost:8080/api/cart", {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

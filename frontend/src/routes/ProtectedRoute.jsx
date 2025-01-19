@@ -17,7 +17,7 @@ export default function ProtectedRoute({ children }) {
     }
 
     // Check with /user servlet
-    fetch("https://unico-201.onrender.com/api/user", {
+    fetch("http://localhost:8080/api/user", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

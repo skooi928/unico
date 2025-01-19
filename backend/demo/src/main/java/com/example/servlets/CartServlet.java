@@ -28,7 +28,7 @@ public class CartServlet extends HttpServlet {
 
     // Add CORS headers
     private void addCorsHeaders(HttpServletResponse response) {
-        response.setHeader("Access-Control-Allow-Origin", "https://unico-dl7u.onrender.com");
+        response.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, OPTIONS, PUT");
         response.setHeader("Access-Control-Allow-Headers", "Content-Type");
     }

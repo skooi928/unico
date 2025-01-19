@@ -47,7 +47,7 @@ export const ProductDetails = () => {
   };
 
   useEffect(() => {
-    fetch(`https://unico-201.onrender.com/api/products/${id}`)
+    fetch(`http://localhost:8080/api/products/${id}`)
       .then((response) => response.json())
       .then((data) => {
         setProduct(data);
@@ -133,7 +133,7 @@ export const ProductDetails = () => {
 
         // Then fetch updated product data
         const response = await fetch(
-          `https://unico-201.onrender.com/api/products/${id}`
+          `http://localhost:8080/api/products/${id}`
         );
         const updatedData = await response.json();
 

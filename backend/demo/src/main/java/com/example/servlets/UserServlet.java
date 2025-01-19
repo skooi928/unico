@@ -238,7 +238,7 @@ public class UserServlet extends HttpServlet {
     }
 
     private void setCorsHeaders(HttpServletResponse response) {
-        response.setHeader("Access-Control-Allow-Origin", "https://unico-dl7u.onrender.com"); // Adjust
+        response.setHeader("Access-Control-Allow-Origin", "http://localhost:5173"); // Adjust
         // the
         // origin
         // as

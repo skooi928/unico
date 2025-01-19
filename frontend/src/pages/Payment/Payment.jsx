@@ -43,7 +43,7 @@ export const Payment = () => {
         ?.split("=")[1];
 
       if (userEmail) {
-        await fetch("https://unico-201.onrender.com/api/cart", {
+        await fetch("http://localhost:8080/api/cart", {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(userEmail),

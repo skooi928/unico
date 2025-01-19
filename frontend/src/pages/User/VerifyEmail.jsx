@@ -13,19 +13,16 @@ export const VerifyEmail = () => {
       const token = searchParams.get("token");
       console.log("Verifying token:", token); // Debug log
       try {
-        const response = await fetch(
-          "https://unico-201.onrender.com/api/user",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              action: "verify",
-              verificationToken: token,
-            }),
-          }
-        );
+        const response = await fetch("http://localhost:8080/api/user", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            action: "verify",
+            verificationToken: token,
+          }),
+        });
 
         const data = await response.json();
         if (response.ok) {

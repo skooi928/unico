@@ -11,7 +11,7 @@ export const CartProvider = ({ children }) => {
 
   useEffect(() => {
     if (userEmail) {
-      fetch(`https://unico-201.onrender.com/api/cart?userEmail=${userEmail}`)
+      fetch(`http://localhost:8080/api/cart?userEmail=${userEmail}`)
         .then((response) => response.json())
         .then((data) => setCartItems(data))
         .catch((error) => console.error("Error fetching cart items:", error));
@@ -23,7 +23,7 @@ export const CartProvider = ({ children }) => {
 
     // First persist cart items to the server
     try {
-      const response = await fetch("https://unico-201.onrender.com/api/cart", {
+      const response = await fetch("http://localhost:8080/api/cart", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...item, userEmail: currentUserEmail }),
