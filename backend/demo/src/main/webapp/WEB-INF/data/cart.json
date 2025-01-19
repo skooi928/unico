@@ -1,1 +1,61 @@
-[{"id":2,"name":"Solid Bamboo Fibre T-Shirt","price":[49.99],"color":"#87CEEB","size":"S","quantity":1,"image":"/Product/T-shirt-blue.webp","userEmail":"skooi853@yahoo.com"},{"id":5,"name":"Batik Series iPad Case","price":[75.99],"color":"#54846c","quantity":0,"image":"/Product/Case-Green.webp","userEmail":"seongkin928@student.usm.my"},{"id":6,"name":"Ribbon Crop Top","price":[109.99],"color":"#d4ccb4","size":"S","quantity":6,"image":"/Product/Crop-Brown.jpg","userEmail":"skooi853@yahoo.com"},{"id":2,"name":"Solid Bamboo Fibre T-Shirt","price":[49.99],"color":"#87CEEB","size":"M","quantity":1,"image":"/Product/T-shirt-blue.webp"},{"id":3,"name":"Double Button Shirt","price":[79.99],"color":"#ecdcd3","size":"XS","quantity":10,"image":"/Product/DoubleButton-Brown.webp"},{"id":2,"name":"Solid Bamboo Fibre T-Shirt","price":[49.99],"color":"#87CEEB","size":"S","quantity":1,"image":"/Product/T-shirt-blue.webp","userEmail":"zavier.zs63@gmail.com"},{"id":1,"name":"Buttonless Polo","price":[199.99],"color":"#000","size":"S","quantity":1,"image":"/Product/Buttonless Polo Black.jpg","userEmail":"zavier.zs63@gmail.com"}]
+[
+  {
+    "id": 2,
+    "name": "Solid Bamboo Fibre T-Shirt",
+    "price": [
+      49.99
+    ],
+    "color": "#87CEEB",
+    "size": "S",
+    "quantity": 1,
+    "image": "/Product/T-shirt-blue.webp",
+    "userEmail": "skooi853@yahoo.com"
+  },
+  {
+    "id": 5,
+    "name": "Batik Series iPad Case",
+    "price": [
+      75.99
+    ],
+    "color": "#54846c",
+    "quantity": 0,
+    "image": "/Product/Case-Green.webp",
+    "userEmail": "seongkin928@student.usm.my"
+  },
+  {
+    "id": 6,
+    "name": "Ribbon Crop Top",
+    "price": [
+      109.99
+    ],
+    "color": "#d4ccb4",
+    "size": "S",
+    "quantity": 6,
+    "image": "/Product/Crop-Brown.jpg",
+    "userEmail": "skooi853@yahoo.com"
+  },
+  {
+    "id": 2,
+    "name": "Solid Bamboo Fibre T-Shirt",
+    "price": [
+      49.99
+    ],
+    "color": "#87CEEB",
+    "size": "S",
+    "quantity": 1,
+    "image": "/Product/T-shirt-blue.webp",
+    "userEmail": "zavier.zs63@gmail.com"
+  },
+  {
+    "id": 1,
+    "name": "Buttonless Polo",
+    "price": [
+      199.99
+    ],
+    "color": "#000",
+    "size": "S",
+    "quantity": 1,
+    "image": "/Product/Buttonless Polo Black.jpg",
+    "userEmail": "zavier.zs63@gmail.com"
+  }
+]

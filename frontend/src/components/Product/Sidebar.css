@@ -13,6 +13,7 @@
 
 /* Sidebar menu styling */
 .sidebar-menu {
+    position: sticky;
     list-style-type: none;
     padding: 0;
     margin: 0; /* Ensure no extra margin is added */
