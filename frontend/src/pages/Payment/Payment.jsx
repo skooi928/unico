@@ -19,15 +19,15 @@ export const Payment = () => {
   //   }
   // }, []);
 
-  useEffect(() => {
-    // Disable body scrolling when the component mounts
-    document.body.classList.add("no-scroll");
+  // useEffect(() => {
+  //   // Disable body scrolling when the component mounts
+  //   document.body.classList.add("no-scroll");
 
-    // Enable body scrolling when the component unmounts
-    return () => {
-      document.body.classList.remove("no-scroll");
-    };
-  }, []);
+  //   // Enable body scrolling when the component unmounts
+  //   return () => {
+  //     document.body.classList.remove("no-scroll");
+  //   };
+  // }, []);
 
   const totalPrice = items.reduce((sum, item) => {
     return sum + item.price * item.quantity;
